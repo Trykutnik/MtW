@@ -1,0 +1,30 @@
+img {
+  width: 100%;
+}
+
+.film {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  &__cover-container {
+    width: 30%;
+    margin-left: 1rem;
+  }
+  &__rating-container{
+    display: flex;
+    justify-content: left;
+    gap: 5rem;
+
+    padding: 0 0.5rem;
+  }
+  &__information-container{
+    width: 70%;
+  }
+}

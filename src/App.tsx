@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Slider } from './components/shared/slider/slider';
+import { Film } from './components/ui/film/film';
 import { Header } from './components/ui/header/header';
 import { getMovies } from './redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from './redux/store';
@@ -38,6 +39,7 @@ function App() {
 				</Routes>
 			</Router>
 			<Slider />
+			<Film />
 			<pre>
 				{stateFromStore.movies?.length && stateFromStore.movies[0].name}
 			</pre>

@@ -41,11 +41,27 @@ export const getMovies = createAsyncThunk<void, void>(
 		const queryBuilder = new MovieQueryBuilder();
 
 		const query = queryBuilder
-			.select(['id', 'name', 'rating', 'poster', 'year', 'logo'])
+			.select([
+				'id',
+				'name',
+				'alternativeName',
+				'rating',
+				'poster',
+				'year',
+				'logo',
+				'genres',
+				'description',
+				'shortDescription',
+				'movieLength',
+				'ageRating',
+				'videos',
+				'countries',
+				'persons',
+			])
 			.filterRange('year', [2020, 2023])
 			.filterRange('rating.kp', [7.5, 10])
 			.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-			.sort('rating.kp', SORT_TYPE.DESC)
+			.sort('rating.kp', SORT_TYPE.ASC)
 			.paginate(1, 10)
 			.build();
 

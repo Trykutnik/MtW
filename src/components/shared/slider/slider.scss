@@ -1,0 +1,32 @@
+@import "../colors";
+.rec.rec-{
+  &arrow{
+    background-color: $peach;
+    &:hover{
+      background-color: $cornsilk;
+      &:enabled{
+        background-color: $gold;
+      }
+      &:active{
+        background-color: $gold;
+      }
+      //&:focus{
+      //  background-color: $averageGoldPeach;
+      //  &:enabled{
+      //    background-color: $averageGoldPeach;
+      //  }
+      //}
+    }
+  }
+  &dot_active {
+    background-color: $peach;
+    box-shadow:0 0 1px 3px $averageGoldPeach;
+    &:focus{
+      box-shadow:0 0 1px 3px $gold;
+    }
+  }
+}
+
+.rec.rec-arrow:focus:enabled{
+    background-color: $averageGoldPeach;
+  }

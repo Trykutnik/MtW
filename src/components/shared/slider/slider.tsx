@@ -7,6 +7,8 @@ import noImage from '../noImage.jpg';
 
 import Item from './Item';
 
+import './slider.scss';
+
 interface ReactElasticCarouselProps {
 	children: HTMLElement;
 	itemsToShow: number;
@@ -14,8 +16,8 @@ interface ReactElasticCarouselProps {
 
 export const Slider = () => {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
-	// const dispatch = useAppDispatch();
 	const { movies } = stateFromStore;
+
 	return (
 		<>
 			{movies && movies.length > 0 ? (
@@ -25,13 +27,18 @@ export const Slider = () => {
 							<Item key={elem.id}>
 								<img
 									src={
-										elem.poster ? elem.poster.url : noImage
+										elem.poster
+											? elem.poster.previewUrl
+											: noImage
 									}
 									alt={elem.name}
 								/>
 							</Item>
 						);
 					})}
+					<Item>
+						<img src={noImage} alt='noImage' />
+					</Item>
 				</Carousel>
 			) : null}
 		</>
