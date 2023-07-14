@@ -1,0 +1,34 @@
+@import "./src/components/shared/colors";
+
+.film-cover{
+  max-width: 300px;
+  height: 32rem;
+
+  //display: flex;
+  //flex-wrap: wrap;
+  &__img-container{
+    position: relative;
+    height: 87%;
+
+    overflow: hidden;
+border-radius: 1rem;
+  }
+  &__img{
+    height: 100%;
+    object-fit: cover;
+  }
+
+&__rating{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0.2rem 0.7rem;
+
+  font-size: xx-large;
+
+  border-radius: 0.6rem;
+  color: $cornsilk;
+  background-color: $cerulean;
+  //rotate: 45deg;
+}
+}

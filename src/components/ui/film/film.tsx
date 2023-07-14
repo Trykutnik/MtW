@@ -14,7 +14,7 @@ export const Film = () => {
 	const { movies } = stateFromStore;
 	const movie = movies && movies.length > 0 ? movies[8] : null;
 	return (
-		<article className={'film'}>
+		<article className={'film article'}>
 			{movie ? (
 				<div className={'film__wrapper'}>
 					<h4>{movie?.name}</h4>

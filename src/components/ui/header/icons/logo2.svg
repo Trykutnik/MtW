@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="321mm"
+   height="90mm"
+   viewBox="0 0 321 90"
+   version="1.1"
+   id="svg547"
+   xmlSpace="preserve"
+   xmlnsSvg="http://www.w3.org/2000/svg"
+   sodipodiDocname="logo.svg"
+   inkscapeVersion="1.2.2 (732a01da63, 2022-12-09)"
+   xmlnsInkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlnsSodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlnsSvg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview9"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscapeShowpageshadow="2"
+     inkscapePageopacity="0.0"
+     inkscapePagecheckerboard="0"
+     inkscapeDeskcolor="#d1d1d1"
+     inkscapeDocument-units="mm"
+     showgrid="false"
+     inkscapeZoom="0.93894033"
+     inkscapeCx="382.87843"
+     inkscapeCy="257.20484"
+     inkscapeWindow-width="1920"
+     inkscapeWindow-height="991"
+     inkscapeWindow-x="-9"
+     inkscapeWindow-y="-9"
+     inkscapeWindow-maximized="1"
+     inkscapeCurrent-layer="layer1" />
+  <defs
+     id="defs544" />
+  <g
+     id="layer1"
+     style="fill:#ff0000">
+    <path
+       style="fill:#003459;fill-opacity:1.0;stroke:#003459;stroke-width:0.265438;stroke-dasharray:none;stroke-opacity:1"
+       d="M 320.81992,0.19299622 H 286.96353 L 274.97135,56.37737 258.14254,0.25924555 H 216.13676 L 199.24169,56.642397 186.85197,0.32550489 H 150.14661 L 171.37487,89.876511 h 48.02072 l 16.25676,-55.094986 16.44417,55.094986 h 47.45852 z"
+       id="path617" />
+    <path
+       style="fill:#00171f;fill-opacity:1;stroke:#00171f;stroke-width:0.26502;stroke-opacity:1"
+       d="M 0.4910504,89.930169 H 34.34744 L 46.33962,33.745796 63.168432,89.86392 H 105.17422 L 122.06929,33.480768 134.459,89.797661 h 36.70537 L 149.9361,0.24665477 H 101.91539 L 85.658616,55.341641 69.214449,0.24665477 H 21.755932 Z"
+       id="path617-4" />
+    <text
+       xmlSpace="preserve"
+       style="font-size:117.216px;font-family:Verdana;-inkscape-font-specification:Verdana;fill:#e2e3e7;fill-opacity:1;stroke:#e2e3e7;stroke-width:1.37363;stroke-opacity:1"
+       x="130.39276"
+       y="113.31752"
+       id="text1522"
+       transform="rotate(-12.808219)"><tspan
+         id="tspan1520"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Anthem;-inkscape-font-specification:Anthem;fill:#e2e3e7;fill-opacity:1;stroke:#e2e3e7;stroke-width:1.37363;stroke-opacity:1"
+         x="130.39276"
+         y="113.31752">t</tspan></text>
+  </g>
+</svg>

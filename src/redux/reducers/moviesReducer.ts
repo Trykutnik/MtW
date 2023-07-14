@@ -15,12 +15,14 @@ import { kp } from '../../api/apiData';
 
 const initialState: initialStateProps = {
 	movies: [],
+	affiche: [],
 	isLoading: false,
 	error: null,
 };
 
 interface initialStateProps {
 	movies: MovieDtoV13[] | undefined;
+	affiche: MovieDtoV13[] | undefined;
 	isLoading: boolean;
 	error: string | null | unknown;
 }
@@ -61,7 +63,7 @@ export const getMovies = createAsyncThunk<void, void>(
 			.filterRange('year', [2020, 2023])
 			.filterRange('rating.kp', [7.5, 10])
 			.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-			.sort('rating.kp', SORT_TYPE.ASC)
+			.sort('rating.kp', SORT_TYPE.DESC)
 			.paginate(1, 10)
 			.build();
 
@@ -82,12 +84,65 @@ export const getMovies = createAsyncThunk<void, void>(
 	},
 );
 
+export const getAffiche = createAsyncThunk<void, void>(
+	'movies/getAffiche',
+	async (_, { rejectWithValue, dispatch }) => {
+		const queryBuilder = new MovieQueryBuilder();
+
+		const query = queryBuilder
+			.select([
+				'id',
+				'name',
+				'alternativeName',
+				'rating',
+				'poster',
+				'year',
+				'logo',
+				'genres',
+				'description',
+				'shortDescription',
+				'movieLength',
+				'ageRating',
+				'videos',
+				'countries',
+				'persons',
+				'ticketsOnSale',
+			])
+			.filterRange('year', [2023, 2023])
+			// .filterRange('rating.kp', [7.5, 10])
+			// .filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
+			// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
+			.filterExact('ticketsOnSale', true)
+			.sort('rating.kp', SORT_TYPE.DESC)
+			.paginate(1, 30)
+			.build();
+
+		const { data, error, message } = await kp.movie.getByFilters(query);
+
+		if (data) {
+			const { docs, page, limit } = data;
+			console.log(`Страница ${page} из ${limit}`);
+			console.log(docs);
+			dispatch(addToAffiche(data.docs));
+		}
+
+		// Если будет ошибка, то выведем ее в консоль
+		if (error) {
+			console.log(error, message);
+			rejectWithValue(error);
+		}
+	},
+);
+
 const moviesSlice = createSlice({
 	name: 'movies',
 	initialState,
 	reducers: {
 		addToMovies: (state, action: PayloadAction<Array<MovieDtoV13>>) => {
 			state.movies = action.payload;
+		},
+		addToAffiche: (state, action: PayloadAction<Array<MovieDtoV13>>) => {
+			state.affiche = action.payload;
 		},
 	},
 	// 	changeLoading: (state, action: PayloadAction<boolean>) => {
@@ -123,10 +178,21 @@ const moviesSlice = createSlice({
 			.addCase(getMovies.rejected, (state, action) => {
 				state.error = action.payload;
 				state.isLoading = false;
+			})
+			.addCase(getAffiche.pending, state => {
+				state.isLoading = true;
+				state.error = null;
+			})
+			.addCase(getAffiche.fulfilled, state => {
+				state.isLoading = false;
+			})
+			.addCase(getAffiche.rejected, (state, action) => {
+				state.error = action.payload;
+				state.isLoading = false;
 			});
 	},
 });
 
-export const { addToMovies } = moviesSlice.actions;
+export const { addToMovies, addToAffiche } = moviesSlice.actions;
 
 export const usersReducer = moviesSlice.reducer;

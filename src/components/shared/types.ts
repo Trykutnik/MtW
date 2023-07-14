@@ -3,24 +3,24 @@ import { MovieDtoV13, Rating } from '@openmoviedb/kinopoiskdev_client';
 import { InformationFromArrayContainer } from '../ui/film/informationFromArrayContainer';
 import { RatingText } from '../ui/film/styled/ratingText';
 
-export interface MovieProps {
-	id: number;
-	name: string;
-	poster: {
-		url: string;
-		previewUrl: string;
-	};
-	description?: string;
-	shortDescription?: string;
-	rating: {
-		kp: number;
-		imdb?: number;
-		filmCritics?: number;
-		russianFilmCritics?: number;
-		await?: number;
-	};
-	year: number;
-}
+// export interface MovieProps {
+// 	id: number;
+// 	name: string;
+// 	poster: {
+// 		url: string;
+// 		previewUrl: string;
+// 	};
+// 	description?: string;
+// 	shortDescription?: string;
+// 	rating: {
+// 		kp: number;
+// 		imdb?: number;
+// 		filmCritics?: number;
+// 		russianFilmCritics?: number;
+// 		await?: number;
+// 	};
+// 	year: number;
+// }
 
 export interface InformationContainerProps {
 	title:
@@ -52,4 +52,13 @@ export interface RatingTextProps {
 	array: MovieDtoV13;
 	critic: 'kp' | 'imdb' | 'tmdb' | 'filmCritics' | 'russianFilmCritics';
 	text: string;
+}
+
+export interface ComponentMovieProps {
+	movie: MovieDtoV13;
+}
+
+export interface DataProps {
+	array: MovieDtoV13[] | undefined;
+	arrayType?: 'film' | 'affiche' | 'tv-series';
 }

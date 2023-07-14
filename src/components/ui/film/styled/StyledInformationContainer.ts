@@ -13,7 +13,7 @@ export const StyledInformationContainer = styled.div`
 	margin-top: 0.5rem;
 	padding: 0.5rem;
 
-	background-color: ${Colors.BRUNSWICK};
+	background-color: ${Colors.PRUSSIAN_BLE};
 	color: ${Colors.WHITE};
 	border-radius: 0.5rem;
 	box-shadow: 0 1rem 1.5rem 0.2rem ${Colors.RICH_BLACK};

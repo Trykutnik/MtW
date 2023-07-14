@@ -1,32 +1,58 @@
 @import "../colors";
-.rec.rec-{
-  &arrow{
-    background-color: $peach;
-    &:hover{
-      background-color: $cornsilk;
-      &:enabled{
-        background-color: $gold;
-      }
-      &:active{
-        background-color: $gold;
-      }
-      //&:focus{
+
+.rec.rec- {
+  &carousel {
+    position: relative;
+  }
+
+  &arrow {
+    position: absolute;
+    top: calc(50% - 25px);
+
+    &-left {
+      left: 0;
+      z-index: 1;
+    }
+
+    &-right {
+      right: 0;
+    }
+
+    background-color: $pictonBlue;
+
+    &:disabled {
+      transition: opacity 0.4s ease-out;
+      opacity: 0;
+      cursor: default;
+      //&:enabled{
       //  background-color: $averageGoldPeach;
-      //  &:enabled{
-      //    background-color: $averageGoldPeach;
-      //  }
       //}
     }
+
+    &:hover {
+      background-color: $cerulean;
+
+      &:enabled {
+        background-color: $prussianBlue;
+      }
+
+      &:active {
+        background-color: $richBlack;
+      }
+
+    }
   }
+
   &dot_active {
-    background-color: $peach;
-    box-shadow:0 0 1px 3px $averageGoldPeach;
-    &:focus{
-      box-shadow:0 0 1px 3px $gold;
+    background-color: $pictonBlue;
+    box-shadow: 0 0 1px 3px $cerulean;
+
+    &:focus {
+      box-shadow: 0 0 1px 3px $prussianBlue;
     }
   }
 }
 
-.rec.rec-arrow:focus:enabled{
-    background-color: $averageGoldPeach;
-  }
+.rec.rec-arrow:focus:enabled {
+  background-color: $prussianBlue;
+}

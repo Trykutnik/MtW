@@ -1,5 +1,23 @@
+@import "./src/components/shared/colors";
 .header {
   display: flex;
+align-items: center;
 
-  height: 2rem;
+  height: 4rem;
+
+  //background-color: #3F190E;
+  //background-color: #F2c288;
+  background-color: #a2a2a2;
+
+  &__menu{
+    display: flex;
+  }
+
+  &__logo-container{
+    height: 3.5rem;
+  }
+
+  &__logo{
+    height: 100%;
+  }
 }
