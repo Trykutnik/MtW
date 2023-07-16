@@ -1,23 +1,77 @@
 @import "./src/components/shared/colors";
-.header {
-  display: flex;
-align-items: center;
 
+.header {
   height: 4rem;
+
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
 
   //background-color: #3F190E;
   //background-color: #F2c288;
   background-color: #a2a2a2;
 
-  &__menu{
+  &__container.article {
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    justify-content: space-between;
+  }
+
+  &__menu {
     display: flex;
   }
 
-  &__logo-container{
+  &__logo-container {
     height: 3.5rem;
   }
 
-  &__logo{
+  &__logo {
     height: 100%;
+  }
+
+  &__input-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    width: 20%;
+    padding: 0 5px;
+
+    border: 1px solid $richBlack;
+    border-radius: 1rem;
+    background-color: $whiteColor;
+    overflow: hidden;
+
+    &:focus-visible {
+      outline: 3px solid $prussianBlue;
+    }
+  }
+
+  &__input {
+    height: 2rem;
+    width: 100%;
+
+    border: none;
+    background-color: $whiteColor;
+
+    &:focus-visible {
+      //border: none;
+      outline: none;
+    }
+
+    &-button {
+      height: 1.8rem;
+      width: 1.8rem;
+
+      border: none;
+      background-color: $whiteColor;
+
+      &-img {
+        height: 100%;
+      }
+    }
   }
 }

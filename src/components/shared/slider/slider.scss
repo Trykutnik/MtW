@@ -7,7 +7,7 @@
 
   &arrow {
     position: absolute;
-    top: calc(50% - 25px);
+    top: calc(50% - 40px);
 
     &-left {
       left: 0;
@@ -39,7 +39,6 @@
       &:active {
         background-color: $richBlack;
       }
-
     }
   }
 
@@ -51,8 +50,30 @@
       box-shadow: 0 0 1px 3px $prussianBlue;
     }
   }
+
+  &pagination {
+    margin: 0;
+  }
 }
 
 .rec.rec-arrow:focus:enabled {
   background-color: $prussianBlue;
+}
+
+.slider {
+  &__img {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__img-container {
+    height: 250px;
+    //object-fit: cover;
+
+  }
+
+  &__text {
+    //height: 15%;
+    margin: 0;
+  }
 }

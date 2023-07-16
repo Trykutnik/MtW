@@ -9,7 +9,7 @@ export const MainPage = () => {
 	return (
 		<article className={'main-page article'}>
 			<p>Кино</p>
-			<Slider array={movies} arrayType={'film'} />
+			<Slider array={movies} arrayType={'films'} />
 			<p>Сейчас в кино</p>
 			<Slider array={affiche} arrayType={'affiche'} />
 		</article>

@@ -1,7 +1,7 @@
 export enum Colors {
 	CERULEAN = '#007ea7',
 	PICTON_BLUE = '#00a7e1',
-	PRUSSIAN_BLE = '#003459',
+	PRUSSIAN_BLUE = '#003459',
 	RICH_BLACK = '#0C1618',
 	BRUNSWICK = '#004643',
 	CORNSILK = '#FAF4D3',

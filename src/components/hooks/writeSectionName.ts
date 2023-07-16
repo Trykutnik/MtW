@@ -1,8 +1,8 @@
 export const writeSectionName = (
-	arrayType: 'film' | 'affiche' | 'tv-series' | undefined,
+	arrayType: 'films' | 'affiche' | 'tv-series' | undefined,
 ) => {
 	switch (arrayType) {
-		case 'film':
+		case 'films':
 			return 'Все фильмы';
 		case 'affiche':
 			return 'Аффиша';

@@ -1,7 +1,6 @@
-import { MovieDtoV13, Rating } from '@openmoviedb/kinopoiskdev_client';
+import { MovieDtoV13, Rating, Review } from '@openmoviedb/kinopoiskdev_client';
 
-import { InformationFromArrayContainer } from '../ui/film/informationFromArrayContainer';
-import { RatingText } from '../ui/film/styled/ratingText';
+import { Comment } from '../ui/film/comment/Comment';
 
 // export interface MovieProps {
 // 	id: number;
@@ -60,5 +59,14 @@ export interface ComponentMovieProps {
 
 export interface DataProps {
 	array: MovieDtoV13[] | undefined;
-	arrayType?: 'film' | 'affiche' | 'tv-series';
+	arrayType?: 'films' | 'affiche' | 'tv-series';
+}
+
+export interface MovieDtoV13Extended extends MovieDtoV13 {
+	comments?: Review[];
+	myType?: 'films' | 'affiche' | 'tv-series';
+}
+
+export interface CommentProps {
+	comment: Review;
 }

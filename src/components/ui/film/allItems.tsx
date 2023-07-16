@@ -7,7 +7,7 @@ import { FilmCover } from './filmCover';
 export const AllItems: FC<DataProps> = props => {
 	const { array } = props;
 	return (
-		<article className={'container'}>
+		<article className={'article'}>
 			<div className={'wrap-container'}>
 				{array?.map(elem => (
 					<FilmCover key={elem.id} movie={elem} />

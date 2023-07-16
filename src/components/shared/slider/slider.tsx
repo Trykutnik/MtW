@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import Carousel from 'react-elastic-carousel';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { MovieDtoV13 } from '@openmoviedb/kinopoiskdev_client';
 
 import { StoreType, useAppDispatch } from '../../../redux/store';
 import { writeSectionName } from '../../hooks/writeSectionName';
-import noImage from '../noImage.jpg';
+import noImage from '../images/noImage.jpg';
 import { DataProps } from '../types';
 
 import Item from './Item';
@@ -19,44 +20,50 @@ interface ReactElasticCarouselProps {
 
 export const Slider: FC<DataProps> = props => {
 	const { array, arrayType } = props;
+	const navigate = useNavigate();
 
+	const navigateToFilm = (movie: MovieDtoV13) => {
+		navigate(`/films/${movie.id}`, { state: movie });
+	};
 	return (
 		<>
 			{array && array.length > 0 ? (
-				<Carousel itemsToShow={5} isRTL={false}>
+				<Carousel itemsToShow={7} isRTL={false}>
 					{array.map((elem, index) => {
 						return (
-							<Item key={elem.id}>
-								<img
-									src={
-										elem.poster
-											? elem.poster.previewUrl
-											: noImage
-									}
-									alt={elem.name}
-								/>
+							<Item
+								key={elem.id}
+								onClick={() => navigateToFilm(elem)}
+							>
+								<div className={'slider__img-container'}>
+									<img
+										src={
+											elem.poster
+												? elem.poster.previewUrl
+												: noImage
+										}
+										alt={elem.name}
+										className={'slider__img'}
+									/>
+								</div>
+								<div className={'slider__text-container'}>
+									<p className={'slider__text'}>
+										{elem.name}
+									</p>
+								</div>
 							</Item>
 						);
 					})}
 					<Item>
 						<NavLink
-							to='/affiche'
+							to={`/${arrayType}`}
 							className={({ isActive }) =>
 								isActive ? 'link-active navlink' : 'navlink'
 							}
 						>
 							<p>{writeSectionName(arrayType)}</p>
-							<p>
-								{arrayType === 'film'
-									? 'Все фильмы'
-									: arrayType === 'affiche'
-									? 'Аффиша'
-									: arrayType === 'tv-series'
-									? 'Все сериалы'
-									: 'null'}
-							</p>
 						</NavLink>
-						{/*	<img src={noImage} alt='noImage' />*/}
+						{/*<img src={noImage} alt='noImage' />*/}
 					</Item>
 				</Carousel>
 			) : null}

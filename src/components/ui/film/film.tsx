@@ -1,7 +1,15 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { Review } from '@openmoviedb/kinopoiskdev_client';
+import { retry } from '@reduxjs/toolkit/query';
+import { id } from 'postcss-selector-parser';
 
-import { StoreType } from '../../../redux/store';
+import { getComments } from '../../../redux/reducers/moviesReducer';
+import { StoreType, useAppDispatch } from '../../../redux/store';
+import { MovieDtoV13Extended } from '../../shared/types';
 
+import { Comment } from './comment/Comment';
 import { RatingText } from './styled/ratingText';
 import { StyledPoster } from './styled/StyledPoster';
 import { InformationContainer } from './informationContainer';
@@ -11,13 +19,44 @@ import './film.scss';
 
 export const Film = () => {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
-	const { movies } = stateFromStore;
-	const movie = movies && movies.length > 0 ? movies[8] : null;
+	const { movies, affiche } = stateFromStore;
+	const dispatch = useAppDispatch();
+
+	const location = useLocation();
+	let movie: MovieDtoV13Extended | undefined;
+	// switch (location.state.type) {
+	// 	case 'films':
+	// 		movie = movies?.filter(elem => elem.id === location.state.id)[0];
+	// 		break;
+	// 	case 'affiche':
+	// 		movie = affiche?.filter(elem => elem.id === location.state.id)[0];
+	// 		break;
+	// }
+	console.log(location.state);
+	if (location.state && location.state.myType === 'films') {
+		movie = movies?.filter(elem => elem.id === location.state.id)[0];
+		console.log(movie);
+	}
+	if (location.state && location.state.myType === 'affiche') {
+		movie = affiche?.filter(elem => elem.id === location.state.id)[0];
+	}
+
+	// const movie = location.state;
+	// const movie = movies?.filter(elem => elem.id === location.state.)
+	console.log(movie);
+	useEffect(() => {
+		if (movie) dispatch(getComments(movie.id));
+	}, []);
+
 	return (
 		<article className={'film article'}>
 			{movie ? (
 				<div className={'film__wrapper'}>
+					<div className={'film__background-text-container'}>
+						<p className={'film__background-text'}>{movie?.name}</p>
+					</div>
 					<h4>{movie?.name}</h4>
+					<p>{movie?.id}</p>
 					<div className={'film__container'}>
 						<div className={'film__cover-container'}>
 							<div>
@@ -48,20 +87,6 @@ export const Film = () => {
 									critic={'filmCritics'}
 									text={'Рейтинг критиков'}
 								/>
-
-								{/*<p>*/}
-								{/*	{movie?.rating?.filmCritics &&*/}
-								{/*	movie?.rating?.filmCritics !== 0*/}
-								{/*		? movie?.rating?.filmCritics*/}
-								{/*		: null}*/}
-								{/*</p>*/}
-								{/*<p>{movie?.rating?.kp}</p>*/}
-								{/*<p>*/}
-								{/*	{movie?.rating?.imdb &&*/}
-								{/*	movie.rating.imdb !== 0*/}
-								{/*		? movie.rating.imdb*/}
-								{/*		: null}*/}
-								{/*</p>*/}
 							</div>
 							{movie?.alternativeName ? (
 								<InformationContainer
@@ -94,6 +119,16 @@ export const Film = () => {
 								additionalContent={'+'}
 							/>
 							<p>{movie.description}</p>
+							<div>
+								{movie.comments
+									? movie.comments.map((elem: Review) => (
+											<Comment
+												key={elem.id}
+												comment={elem}
+											/>
+									  ))
+									: null}
+							</div>
 						</div>
 					</div>
 				</div>

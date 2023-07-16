@@ -1,17 +1,15 @@
 import {
 	MovieDtoV13,
 	MovieQueryBuilder,
+	Review,
+	ReviewQueryBuilder,
 	SORT_TYPE,
 	SPECIAL_VALUE,
 } from '@openmoviedb/kinopoiskdev_client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { query } from 'express';
 
 import { kp } from '../../api/apiData';
-// import { MovieProps } from '../../shared/types';
-// import Api from 'API/axiosConfig';
-
-// import { UserInterfaceWithComments, UserType } from '../../components/shared/types';
+import { MovieDtoV13Extended } from '../../components/shared/types';
 
 const initialState: initialStateProps = {
 	movies: [],
@@ -21,21 +19,11 @@ const initialState: initialStateProps = {
 };
 
 interface initialStateProps {
-	movies: MovieDtoV13[] | undefined;
-	affiche: MovieDtoV13[] | undefined;
+	movies: MovieDtoV13Extended[] | undefined;
+	affiche: MovieDtoV13Extended[] | undefined;
 	isLoading: boolean;
 	error: string | null | unknown;
 }
-//
-// interface ChangeNameProps {
-// 	userName: string | null;
-// 	userIndex: number | null;
-// }
-//
-// interface AddCommentProps {
-// 	userId: number;
-// 	userComments: Array<string | null>;
-// }
 
 export const getMovies = createAsyncThunk<void, void>(
 	'movies/getMovies',
@@ -62,9 +50,10 @@ export const getMovies = createAsyncThunk<void, void>(
 			])
 			.filterRange('year', [2020, 2023])
 			.filterRange('rating.kp', [7.5, 10])
+			// .filterRange('reviewInfo', SPECIAL_VALUE.NOT_NULL)
 			.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
 			.sort('rating.kp', SORT_TYPE.DESC)
-			.paginate(1, 10)
+			.paginate(1, 15)
 			.build();
 
 		const { data, error, message } = await kp.movie.getByFilters(query);
@@ -74,6 +63,7 @@ export const getMovies = createAsyncThunk<void, void>(
 			console.log(`Страница ${page} из ${limit}`);
 			console.log(docs);
 			dispatch(addToMovies(data.docs));
+			dispatch(addType('films'));
 		}
 
 		// Если будет ошибка, то выведем ее в консоль
@@ -107,6 +97,8 @@ export const getAffiche = createAsyncThunk<void, void>(
 				'countries',
 				'persons',
 				'ticketsOnSale',
+				'reviewInfo',
+				'type',
 			])
 			.filterRange('year', [2023, 2023])
 			// .filterRange('rating.kp', [7.5, 10])
@@ -114,7 +106,7 @@ export const getAffiche = createAsyncThunk<void, void>(
 			// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
 			.filterExact('ticketsOnSale', true)
 			.sort('rating.kp', SORT_TYPE.DESC)
-			.paginate(1, 30)
+			.paginate(1, 250)
 			.build();
 
 		const { data, error, message } = await kp.movie.getByFilters(query);
@@ -124,9 +116,50 @@ export const getAffiche = createAsyncThunk<void, void>(
 			console.log(`Страница ${page} из ${limit}`);
 			console.log(docs);
 			dispatch(addToAffiche(data.docs));
+			dispatch(addType('affiche'));
 		}
 
-		// Если будет ошибка, то выведем ее в консоль
+		if (error) {
+			console.log(error, message);
+			rejectWithValue(error);
+		}
+	},
+);
+
+export const getComments = createAsyncThunk<void, number>(
+	'movies/getComments',
+	async (currnentMovieId, { rejectWithValue, dispatch }) => {
+		const queryBuilder = new ReviewQueryBuilder();
+
+		const query = queryBuilder
+			.select([
+				'id',
+				'movieId',
+				'type',
+				'review',
+				'title',
+				'date',
+				'author',
+				'type',
+			])
+			// .filterRange('rating.kp', [7.5, 10])
+			// .filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
+			// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
+			// .filterExact('ticketsOnSale', true)
+			// .sort('rating.kp', SORT_TYPE.DESC)
+			.filterExact('movieId', currnentMovieId)
+			.paginate(1, 250)
+			.build();
+
+		const { data, error, message } = await kp.review.getByFilters(query);
+
+		if (data) {
+			const { docs, page, limit } = data;
+			console.log(`Страница ${page} из ${limit}`);
+			console.log(docs);
+			dispatch(addToMoviesComments(data.docs));
+		}
+
 		if (error) {
 			console.log(error, message);
 			rejectWithValue(error);
@@ -138,33 +171,65 @@ const moviesSlice = createSlice({
 	name: 'movies',
 	initialState,
 	reducers: {
-		addToMovies: (state, action: PayloadAction<Array<MovieDtoV13>>) => {
+		addToMovies: (
+			state,
+			action: PayloadAction<Array<MovieDtoV13Extended>>,
+		) => {
 			state.movies = action.payload;
 		},
-		addToAffiche: (state, action: PayloadAction<Array<MovieDtoV13>>) => {
+		addToAffiche: (
+			state,
+			action: PayloadAction<Array<MovieDtoV13Extended>>,
+		) => {
 			state.affiche = action.payload;
 		},
+		addType: (
+			state,
+			action: PayloadAction<'films' | 'affiche' | 'tv-series'>,
+		) => {
+			if (state.movies && action.payload === 'films') {
+				state.movies.forEach(elem => (elem.myType = action.payload));
+			}
+			if (state.affiche && action.payload === 'affiche') {
+				state.affiche.forEach(elem => (elem.myType = action.payload));
+			}
+			// state.affiche = action.payload;
+			// switch (action.payload) {
+			// 	case 'films':
+			// 		state.movies ? state.movies.forEach(
+			// 			elem => (elem.myType = action.payload),
+			// 		) : null;
+			// 		break;
+			//
+			// 	case 'affiche':
+			// 		state.affiche ? state.affiche.forEach(
+			// 			elem => (elem.myType = action.payload),
+			// 		) : null;
+			// 		}
+			// 		break;
+			// }
+		},
+		addToMoviesComments: (state, action: PayloadAction<Array<Review>>) => {
+			if (
+				state.movies &&
+				state.movies.find(elem => elem.id === action.payload[0].movieId)
+			) {
+				state.movies.filter(
+					elem => elem.id === action.payload[0].movieId,
+				)[0].comments = action.payload;
+			}
+			if (
+				state.affiche &&
+				state.affiche.find(
+					elem => elem.id === action.payload[0].movieId,
+				)
+			) {
+				state.affiche.filter(
+					elem => elem.id === action.payload[0].movieId,
+				)[0].comments = action.payload;
+			}
+		},
 	},
-	// 	changeLoading: (state, action: PayloadAction<boolean>) => {
-	// 		state.isLoading = action.payload;
-	// 	},
-	// 	changeName: (state, action: PayloadAction<ChangeNameProps>) => {
-	// 		if (action.payload.userName) {
-	// 			if (
-	// 				action.payload.userIndex === 0 ||
-	// 				action.payload.userIndex
-	// 			) {
-	// 				state.users[action.payload.userIndex].name =
-	// 					action.payload.userName;
-	// 			}
-	// 		}
-	// 	},
-	// 	addComment: (state, action: PayloadAction<AddCommentProps>) => {
-	// 		state.users.filter(
-	// 			elem => elem.id === action.payload.userId,
-	// 		)[0].comments = action.payload.userComments;
-	// 	},
-	// },
 
 	extraReducers: builder => {
 		builder
@@ -193,6 +258,7 @@ const moviesSlice = createSlice({
 	},
 });
 
-export const { addToMovies, addToAffiche } = moviesSlice.actions;
+export const { addToMovies, addToAffiche, addToMoviesComments, addType } =
+	moviesSlice.actions;
 
 export const usersReducer = moviesSlice.reducer;
