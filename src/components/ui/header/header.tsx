@@ -19,6 +19,7 @@ export const Header = () => {
 
 	const setFocus = () => {
 		setLabelFocus(true);
+		// labelFocus.current = true;
 	};
 	const setBlur = () => {
 		setLabelFocus(false);
@@ -59,7 +60,7 @@ export const Header = () => {
 					{/*</NavLink>*/}
 					<nav className='header__menu'>
 						<NavLink
-							to='/film'
+							to='/films'
 							className={({ isActive }) =>
 								isActive ? 'link-active navlink' : 'navlink'
 							}

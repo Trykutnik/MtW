@@ -1,3 +1,5 @@
+@import "./src/components/shared/colors";
+
 img {
   width: 100%;
 }
@@ -47,5 +49,8 @@ position: relative;
     color: gray;
     font-size: 400px;
     font-weight: bolder;
+  }
+  &__description {
+    background-color: $peach;
   }
 }

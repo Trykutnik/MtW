@@ -1,13 +1,10 @@
 import { FC } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { MovieDtoV13 } from '@openmoviedb/kinopoiskdev_client';
 
-import { StoreType, useAppDispatch } from '../../../redux/store';
 import { writeSectionName } from '../../hooks/writeSectionName';
 import noImage from '../images/noImage.jpg';
-import { DataProps } from '../types';
+import { DataProps, MovieDtoV13Extended, SliderProps } from '../types';
 
 import Item from './Item';
 
@@ -18,12 +15,12 @@ interface ReactElasticCarouselProps {
 	itemsToShow: number;
 }
 
-export const Slider: FC<DataProps> = props => {
+export const Slider: FC<SliderProps> = props => {
 	const { array, arrayType } = props;
 	const navigate = useNavigate();
-
-	const navigateToFilm = (movie: MovieDtoV13) => {
-		navigate(`/films/${movie.id}`, { state: movie });
+	// console.log(array);
+	const navigateToFilm = (movie: MovieDtoV13Extended) => {
+		navigate(`/film/${movie.id}`, { state: movie });
 	};
 	return (
 		<>

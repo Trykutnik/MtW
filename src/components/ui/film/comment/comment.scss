@@ -1,0 +1,13 @@
+@import "./src/components/shared/colors";
+
+.comment {
+  &__title {
+    font-size: x-large;
+
+    background-color: $cerulean;
+  }
+
+  &__review {
+    background-color: $pictonBlue;
+  }
+}

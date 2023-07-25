@@ -1,25 +1,5 @@
-import { MovieDtoV13, Rating, Review } from '@openmoviedb/kinopoiskdev_client';
-
-import { Comment } from '../ui/film/comment/Comment';
-
-// export interface MovieProps {
-// 	id: number;
-// 	name: string;
-// 	poster: {
-// 		url: string;
-// 		previewUrl: string;
-// 	};
-// 	description?: string;
-// 	shortDescription?: string;
-// 	rating: {
-// 		kp: number;
-// 		imdb?: number;
-// 		filmCritics?: number;
-// 		russianFilmCritics?: number;
-// 		await?: number;
-// 	};
-// 	year: number;
-// }
+import { Dispatch, SetStateAction } from 'react';
+import { MovieDtoV13, Review } from '@openmoviedb/kinopoiskdev_client';
 
 export interface InformationContainerProps {
 	title:
@@ -58,15 +38,38 @@ export interface ComponentMovieProps {
 }
 
 export interface DataProps {
-	array: MovieDtoV13[] | undefined;
+	array: MoviesProps[] | undefined;
+	arrayType?: 'films' | 'affiche' | 'tv-series';
+}
+
+export interface SliderProps {
+	array: MovieDtoV13Extended[] | undefined;
 	arrayType?: 'films' | 'affiche' | 'tv-series';
 }
 
 export interface MovieDtoV13Extended extends MovieDtoV13 {
 	comments?: Review[];
 	myType?: 'films' | 'affiche' | 'tv-series';
+	page?: number;
 }
 
 export interface CommentProps {
 	comment: Review;
 }
+
+export interface PaginationProps {
+	page: number;
+	lastPage: number;
+	setCurrentPage: (page: number) => void;
+}
+
+export interface MoviesProps {
+	filmsArray: MovieDtoV13Extended[] | undefined;
+	page: number;
+	type: 'films' | 'affiche' | 'tv-series';
+}
+
+// export interface AddTypeProps {
+// 	type: 'films' | 'affiche' | 'tv-series';
+// 	page: number;
+// }

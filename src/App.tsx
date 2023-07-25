@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { getRelatedByQueryBuilderMovies } from './api/apiData';
-import { Slider } from './components/shared/slider/slider';
-import { AllItems } from './components/ui/film/allItems';
+import { AllItems } from './components/ui/film/allItems/allItems';
 import { Film } from './components/ui/film/film';
 import { Header } from './components/ui/header/header';
 import { MainPage } from './components/ui/mainPage/mainPage';
@@ -18,16 +16,14 @@ function App() {
 	const { movies, affiche } = stateFromStore;
 	const dispatch = useAppDispatch();
 
-	// const bootstrap = async () => {
-	// 	await getRelatedByQueryBuilderMovies();
-	// };
-
 	useEffect(() => {
-		dispatch(getMovies());
+		dispatch(getMovies(1));
+		// dispatch(getMovies(2));
 		dispatch(getAffiche());
-		// bootstrap();
 	}, []);
 
+	console.log(movies);
+	// console.log(test);
 	return (
 		<>
 			<Router>
@@ -41,12 +37,16 @@ function App() {
 						}
 					>
 						<Route index element={<MainPage />} />
-						{/*<Route path='film' element={<Film />} />*/}
+						<Route path='film' element={<Film />} />
 						<Route
 							path='films'
 							element={<AllItems array={movies} />}
 						/>
-						<Route path='films/:id' element={<Film />} />
+						<Route
+							path='films/:page'
+							element={<AllItems array={movies} />}
+						/>
+						<Route path='film/:id' element={<Film />} />
 						<Route
 							path='affiche'
 							element={<AllItems array={affiche} />}
