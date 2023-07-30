@@ -37,12 +37,14 @@ export const Pagination: FC<PaginationProps> = props => {
 						<p>{page - 2}</p>
 					</NavLink>
 				) : null}
-				<NavLink
-					to={`/films/${page - 1}`}
-					onClick={() => setCurrentPage(page - 1)}
-				>
-					<p>{page - 1}</p>
-				</NavLink>
+				{page === 1 ? null : (
+					<NavLink
+						to={`/films/${page - 1}`}
+						onClick={() => setCurrentPage(page - 1)}
+					>
+						<p>{page - 1}</p>
+					</NavLink>
+				)}
 				<NavLink
 					to={`/films/${page}`}
 					onClick={() => setCurrentPage(page)}

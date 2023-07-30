@@ -13,7 +13,7 @@ export const StyledLabel = styled.label<StyledLabelProps>`
 	gap: 5px;
 	align-items: center;
 
-	width: 20%;
+	width: 100%;
 	padding: 0 5px;
 
 	border: 1px solid $richBlack;

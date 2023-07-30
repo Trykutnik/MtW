@@ -21,15 +21,15 @@ export const Film = () => {
 	const dispatch = useAppDispatch();
 
 	const location = useLocation();
-	// let movie: MovieDtoV13Extended | undefined;
-	// switch (location.state.type) {
-	// 	case 'films':
-	// 		movie = movies?.filter(elem => elem.id === location.state.id)[0];
-	// 		break;
-	// 	case 'affiche':
-	// 		movie = affiche?.filter(elem => elem.id === location.state.id)[0];
-	// 		break;
-	// }
+	let movie: MovieDtoV13Extended | undefined;
+	switch (location.state.myType) {
+		case 'films':
+			movie = movies?.filter(elem => elem.id === location.state.id)[0];
+			break;
+		case 'affiche':
+			movie = affiche?.filter(elem => elem.id === location.state.id)[0];
+			break;
+	}
 	// console.log(location.state);
 	// if (location.state && location.state.myType === 'films') {
 	// 	movie = movies?.map(currentMovie => {
@@ -53,11 +53,14 @@ export const Film = () => {
 	// 	console.log(movie);
 	// }
 
-	const movie = location.state;
-	// const movie = movies?.filter(elem => elem.id === location.state);
+	// const movie = location.state;
+	console.log(location.state);
+	console.log(movies);
+	// const movie = movies?.filter(elem => elem.id === location.state.id)[0];
 	console.log(movie);
 	useEffect(() => {
 		if (movie) dispatch(getComments(movie.id));
+		if (movie && movie.comments) console.log('Comments', movie.comments);
 	}, []);
 
 	return (
@@ -110,11 +113,14 @@ export const Film = () => {
 								title={'Год'}
 								content={movie?.year}
 							/>
-							<InformationContainer
-								title={'Продолжительность'}
-								content={movie?.movieLength}
-								additionalContent={' мин'}
-							/>
+							{movie?.movieLength ? (
+								<InformationContainer
+									title={'Продолжительность'}
+									content={movie?.movieLength}
+									additionalContent={' мин'}
+								/>
+							) : null}
+
 							<InformationFromArrayContainer
 								title={'Жанры'}
 								array={movie}

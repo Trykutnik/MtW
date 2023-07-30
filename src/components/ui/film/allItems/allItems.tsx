@@ -29,10 +29,12 @@ export const AllItems: FC<SliderProps> = props => {
 		currentArray = array?.filter(elem => elem.page === 1);
 	}
 
-	console.log(locationPage);
 	console.log(array);
 	useEffect(() => {
-		if (locationPage > 1) {
+		if (
+			locationPage > 1 &&
+			!array?.find(elem => elem.page === currentPage)
+		) {
 			dispatch(getMovies(locationPage));
 			console.log('useEffect AllItems', array);
 		}

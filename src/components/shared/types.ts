@@ -34,7 +34,7 @@ export interface RatingTextProps {
 }
 
 export interface ComponentMovieProps {
-	movie: MovieDtoV13;
+	movie: MovieDtoV13Extended;
 }
 
 export interface DataProps {

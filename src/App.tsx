@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { dispatch } from 'jest-circus/build/state';
 
 import { AllItems } from './components/ui/film/allItems/allItems';
 import { Film } from './components/ui/film/film';
 import { Header } from './components/ui/header/header';
 import { MainPage } from './components/ui/mainPage/mainPage';
-import { getAffiche, getMovies } from './redux/reducers/moviesReducer';
+import {
+	findFilm,
+	getAffiche,
+	getMovies,
+} from './redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from './redux/store';
 
 import './App.scss';
@@ -20,6 +25,7 @@ function App() {
 		dispatch(getMovies(1));
 		// dispatch(getMovies(2));
 		dispatch(getAffiche());
+		// dispatch(findFilm('Человек'));
 	}, []);
 
 	console.log(movies);

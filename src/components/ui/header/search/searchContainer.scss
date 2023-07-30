@@ -1,0 +1,23 @@
+.search {
+  display: flex;
+  width: 100%;
+
+  &__img-container {
+    width: 20%;
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__data-container {
+    width: 80%;
+    margin-left: 0.5rem;
+  }
+
+  &__year-and-rating-container {
+    display: flex;
+    //justify-content: space-around;
+    gap: 1rem;
+  }
+}
