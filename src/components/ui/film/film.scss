@@ -35,20 +35,22 @@ position: relative;
 
     position: relative;
     //overflow: hidden;
-    text-overflow: clip;
-    white-space: pre-wrap;
+    //text-overflow: clip;
+    //white-space: pre-wrap;
   }
   &__background-text{
     margin: 0;
+    width: 3000px;
+    height: 200vh;
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     top: 100px;
     left:-20%;
     rotate: 33deg;
 
-    color: gray;
-    font-size: 400px;
-    font-weight: bolder;
+    //color: gray;
+    //font-size: 400px;
+    //font-weight: bolder;
   }
   &__description {
     background-color: $peach;

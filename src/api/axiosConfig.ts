@@ -1,3 +1,8 @@
+import {
+	MovieQueryBuilder,
+	SORT_TYPE,
+	SPECIAL_VALUE,
+} from '@openmoviedb/kinopoiskdev_client';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { API_KEY, BASE_URL } from './urls';

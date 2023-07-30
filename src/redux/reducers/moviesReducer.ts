@@ -1,4 +1,3 @@
-import { Simulate } from 'react-dom/test-utils';
 import {
 	MovieDocsResponseDtoV13,
 	MovieQueryBuilder,
@@ -9,10 +8,19 @@ import {
 } from '@openmoviedb/kinopoiskdev_client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { kp } from '../../api/apiData';
 import {
+	afficheQueryBuilder,
+	commentQueryBuilder,
+	findFilmQueryBuilder,
+	kp,
+	movieQueryBuilder,
+} from '../../api/apiData';
+import {
+	AddNewCommentProps,
+	AddOneFilmProps,
 	MovieDtoV13Extended,
 	MoviesProps,
+	MyType,
 } from '../../components/shared/types';
 
 const initialState: initialStateProps = {
@@ -41,45 +49,14 @@ interface PagesProps {
 export const getMovies = createAsyncThunk<void, number>(
 	'movies/getMovies',
 	async (currentPage, { rejectWithValue, dispatch }) => {
-		const queryBuilder = new MovieQueryBuilder();
-
-		const query = queryBuilder
-			.select([
-				'id',
-				'name',
-				'alternativeName',
-				'rating',
-				'poster',
-				'year',
-				'logo',
-				'genres',
-				'description',
-				'shortDescription',
-				'movieLength',
-				'ageRating',
-				'videos',
-				'countries',
-				'persons',
-			])
-			.filterRange('year', [2020, 2023])
-			.filterRange('rating.kp', [7.5, 10])
-			// .filterRange('reviewInfo', SPECIAL_VALUE.NOT_NULL)
-			.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-			.sort('rating.kp', SORT_TYPE.DESC)
-			.paginate(currentPage, 15)
-			.build();
-
-		const { data, error, message } = await kp.movie.getByFilters(query);
+		const { data, error, message } = await kp.movie.getByFilters(
+			movieQueryBuilder(currentPage),
+		);
 
 		if (data) {
 			const { docs, page, limit } = data;
 			console.log(`Страница ${page} из ${limit}`);
 			console.log(docs);
-			// dispatch(addToMovies(data.docs));
-			// if (+page === 1) {
-			// 	dispatch(fillArray(limit));
-			// }
-			// dispatch(fillArray(limit));
 			dispatch(
 				addToMovies({
 					filmsArray: docs,
@@ -103,39 +80,9 @@ export const getMovies = createAsyncThunk<void, number>(
 export const getAffiche = createAsyncThunk<void, void>(
 	'movies/getAffiche',
 	async (_, { rejectWithValue, dispatch }) => {
-		const queryBuilder = new MovieQueryBuilder();
-
-		const query = queryBuilder
-			.select([
-				'id',
-				'name',
-				'alternativeName',
-				'rating',
-				'poster',
-				'year',
-				'logo',
-				'genres',
-				'description',
-				'shortDescription',
-				'movieLength',
-				'ageRating',
-				'videos',
-				'countries',
-				'persons',
-				'ticketsOnSale',
-				'reviewInfo',
-				'type',
-			])
-			.filterRange('year', [2023, 2023])
-			// .filterRange('rating.kp', [7.5, 10])
-			// .filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-			// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
-			.filterExact('ticketsOnSale', true)
-			.sort('rating.kp', SORT_TYPE.DESC)
-			.paginate(1, 250)
-			.build();
-
-		const { data, error, message } = await kp.movie.getByFilters(query);
+		const { data, error, message } = await kp.movie.getByFilters(
+			afficheQueryBuilder(),
+		);
 
 		if (data) {
 			const { docs, page, limit } = data;
@@ -157,30 +104,10 @@ export const getAffiche = createAsyncThunk<void, void>(
 
 export const getComments = createAsyncThunk<void, number>(
 	'movies/getComments',
-	async (currnentMovieId, { rejectWithValue, dispatch }) => {
-		const queryBuilder = new ReviewQueryBuilder();
-
-		const query = queryBuilder
-			.select([
-				'id',
-				'movieId',
-				'type',
-				'review',
-				'title',
-				'date',
-				'author',
-				'type',
-			])
-			// .filterRange('rating.kp', [7.5, 10])
-			// .filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-			// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
-			// .filterExact('ticketsOnSale', true)
-			// .sort('rating.kp', SORT_TYPE.DESC)
-			.filterExact('movieId', currnentMovieId)
-			.paginate(1, 250)
-			.build();
-
-		const { data, error, message } = await kp.review.getByFilters(query);
+	async (currentMovieId, { rejectWithValue, dispatch }) => {
+		const { data, error, message } = await kp.review.getByFilters(
+			commentQueryBuilder(currentMovieId),
+		);
 
 		if (data) {
 			const { docs, page, limit } = data;
@@ -202,33 +129,9 @@ export const findFilm = createAsyncThunk<void, string>(
 		if (filmName === '') {
 			dispatch(addToSearch([]));
 		} else {
-			const queryBuilder = new MovieQueryBuilder();
-
-			const query = queryBuilder
-				.select([
-					'id',
-					'name',
-					'alternativeName',
-					'rating',
-					'poster',
-					'year',
-					'logo',
-					'genres',
-					'description',
-					'shortDescription',
-					'movieLength',
-					'ageRating',
-					'videos',
-					'countries',
-					'persons',
-				])
-				.filterExact('name', filmName)
-				.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
-				.sort('rating.kp', SORT_TYPE.DESC)
-				.paginate(1, 15)
-				.build();
-
-			const { data, error, message } = await kp.movie.getByFilters(query);
+			const { data, error, message } = await kp.movie.getByFilters(
+				findFilmQueryBuilder(filmName),
+			);
 
 			if (data) {
 				const { docs, page, limit } = data;
@@ -258,11 +161,6 @@ const moviesSlice = createSlice({
 				});
 				state.movies.push(...(action.payload.filmsArray || []));
 			}
-			// if (state.movies.length === 0) {
-			// 	state.movies = action.payload;
-			// } else {
-			// 	state.movies.concat(action.payload);
-			// }
 		},
 		addToAffiche: (
 			state,
@@ -274,12 +172,43 @@ const moviesSlice = createSlice({
 			state,
 			action: PayloadAction<Array<MovieDtoV13Extended>>,
 		) => {
+			// state.searchValues.forEach(elem => elem.myType)
 			state.searchValues = action.payload;
 		},
-		addType: (
-			state,
-			action: PayloadAction<'films' | 'affiche' | 'tv-series'>,
-		) => {
+		addOneFilm: (state, action: PayloadAction<AddOneFilmProps>) => {
+			if (state.searchValues) {
+				const currentFilm = state.searchValues.filter(
+					elem => elem.id === action.payload.film.id,
+				)[0];
+				currentFilm.myType = action.payload.type;
+				switch (action.payload.type) {
+					case 'affiche':
+						if (state.affiche) {
+							action.payload.film.myType = 'affiche';
+							state.affiche.push(action.payload.film);
+						}
+						break;
+					// case 'tv-series':
+					// 	if (state.tv-series) state.tv-series.push(action.payload.film);
+					// 	break;
+					default:
+						if (state.movies) {
+							currentFilm.myType = 'films';
+							// action.payload.film.myType = 'films';
+							state.movies.push(currentFilm);
+						}
+				}
+			}
+		},
+		// addTypeToOneFilm: (state, action: PayloadAction<AddOneFilmProps>) => {
+		// 	if (state.searchValues) {
+		// 		state.searchValues.filter(
+		// 			elem => (elem.id = action.payload.film.id),
+		// 		)[0].myType = action.payload.type;
+		// 		// .forEach(elem => (elem.myType = action.payload));
+		// 	}
+		// },
+		addType: (state, action: PayloadAction<MyType>) => {
 			if (state.movies && action.payload === 'films') {
 				state.movies.forEach(elem => (elem.myType = action.payload));
 			}
@@ -287,14 +216,14 @@ const moviesSlice = createSlice({
 				state.affiche.forEach(elem => (elem.myType = action.payload));
 			}
 		},
-		addPageToMovies: (state, action: PayloadAction<number>) => {
-			if (state.movies) {
-				state.movies.forEach(elem => (elem.page = action.payload));
-			}
-			if (state.affiche) {
-				state.affiche.forEach(elem => (elem.page = action.payload));
-			}
-		},
+		// addPageToMovies: (state, action: PayloadAction<number>) => {
+		// 	if (state.movies) {
+		// 		state.movies.forEach(elem => (elem.page = action.payload));
+		// 	}
+		// 	if (state.affiche) {
+		// 		state.affiche.forEach(elem => (elem.page = action.payload));
+		// 	}
+		// },
 		addPages: (state, action: PayloadAction<number>) => {
 			state.pages.movies = action.payload;
 		},
@@ -316,6 +245,38 @@ const moviesSlice = createSlice({
 				state.affiche.filter(
 					elem => elem.id === action.payload[0].movieId,
 				)[0].comments = action.payload;
+			}
+		},
+		addNewComment: (state, action: PayloadAction<AddNewCommentProps>) => {
+			// state.pages.movies = action.payload;
+			const obj = {
+				title: action.payload.title,
+				review: action.payload.review,
+				userRating: 0,
+			};
+			if (state.movies) {
+				const currentFilm = state.movies.filter(
+					elem => elem.id === action.payload.filmId,
+				)[0];
+				if (currentFilm) {
+					if (currentFilm.comments && currentFilm.comments.length) {
+						currentFilm.comments.unshift(obj);
+					} else {
+						currentFilm.comments = [obj];
+					}
+				}
+			}
+			if (state.affiche) {
+				const currentFilm = state.affiche.filter(
+					elem => elem.id === action.payload.filmId,
+				)[0];
+				if (currentFilm) {
+					if (currentFilm.comments && currentFilm.comments.length) {
+						currentFilm.comments.unshift(obj);
+					} else {
+						currentFilm.comments = [obj];
+					}
+				}
 			}
 		},
 	},
@@ -364,9 +325,9 @@ export const {
 	addPages,
 	addToMoviesComments,
 	addType,
-	addPageToMovies,
 	addToSearch,
-	// fillArray,
+	addOneFilm,
+	addNewComment,
 } = moviesSlice.actions;
 
 export const usersReducer = moviesSlice.reducer;

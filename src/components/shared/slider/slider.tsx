@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import { writeSectionName } from '../../hooks/writeSectionName';
 import noImage from '../images/noImage.jpg';
-import { DataProps, MovieDtoV13Extended, SliderProps } from '../types';
+import { MovieDtoV13Extended, SliderProps } from '../types';
 
 import Item from './Item';
 
@@ -25,7 +25,7 @@ export const Slider: FC<SliderProps> = props => {
 	return (
 		<>
 			{array && array.length > 0 ? (
-				<Carousel itemsToShow={7} isRTL={false}>
+				<Carousel itemsToShow={7} isRTL={false} itemsToScroll={5}>
 					{array.map((elem, index) => {
 						return (
 							<Item

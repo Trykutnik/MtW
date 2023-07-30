@@ -64,6 +64,10 @@ export const Header = () => {
 			return debounceOnChange();
 		}
 	};
+	//
+	// const searchAside = {
+	// 	display:
+	// }
 
 	return (
 		<>
@@ -139,6 +143,7 @@ export const Header = () => {
 								onChange={handleChangeValue}
 								onFocus={setFocus}
 								onBlur={setBlur}
+								// autoComplete={'off'}
 							/>
 							<button className={'header__input-button'}>
 								<img
@@ -148,7 +153,12 @@ export const Header = () => {
 								/>
 							</button>
 						</StyledLabel>
-						<aside>
+						<aside
+							style={{
+								visibility: labelFocus ? 'visible' : 'hidden',
+								transition: '100ms',
+							}}
+						>
 							{searchValues && searchValues.length ? (
 								<div className={'header__search'}>
 									{searchValues?.map((elem, index) => {

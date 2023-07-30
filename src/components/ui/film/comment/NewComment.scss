@@ -1,0 +1,16 @@
+textarea {
+  resize: none;
+}
+
+.new-comment {
+  width: 60%;
+
+  &__comment {
+    &-header, &-text {
+      width: 100%;
+
+      font-family: "Arial Black", sans-serif;
+      font-size: 1.2rem;
+    }
+  }
+}
