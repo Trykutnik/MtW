@@ -9,10 +9,10 @@ import { MovieDtoV13Extended } from '../../shared/types';
 
 import { Comment } from './comment/Comment';
 import { NewComment } from './comment/NewComment';
-import { RatingText } from './styled/ratingText';
 import { StyledPoster } from './styled/StyledPoster';
 import { InformationContainer } from './informationContainer';
 import { InformationFromArrayContainer } from './informationFromArrayContainer';
+import { RatingText } from './ratingText';
 
 import './film.scss';
 
@@ -27,17 +27,21 @@ export const Film = () => {
 	switch (location.state.myType) {
 		case 'films':
 			movie = movies?.filter(elem => elem.id === location.state.id)[0];
+			console.log('location.state.myType === films', movie);
 			break;
 		case 'affiche':
 			movie = affiche?.filter(elem => elem.id === location.state.id)[0];
+			console.log('location.state.myType === affiche', movie);
 			break;
 		default:
 			movie = movies?.filter(elem => elem.id === location.state.id)[0];
+			console.log('location.state.myType === default(films)', movie);
 	}
 
 	console.log(location.state);
 	console.log(location.state.myType);
 	console.log(movies);
+	console.log(affiche);
 	// const movie = movies?.filter(elem => elem.id === location.state.id)[0];
 	console.log(movie);
 	// console.log(location.state);
@@ -55,48 +59,47 @@ export const Film = () => {
 		<article className={'film article'}>
 			{movie ? (
 				<div className={'film__wrapper'}>
-					<div className={'film__background-text-container'}>
-						<svg
-							className={'film__background-text'}
-							xmlns='http://www.w3.org/2000/svg'
-							version='1.1'
-							id='svgcontent'
-						>
-							<text
-								x={'0'}
-								y={'150'}
-								fill={'gray'}
-								fontFamily={'Arial, sans-serif'}
-								fontSize={'400px'}
-							>
-								{movie?.name}
-							</text>
-							<text
-								x={'0'}
-								y={'800'}
-								fill={'gray'}
-								fontFamily={'Arial, sans-serif'}
-								fontSize={'400px'}
-							>
-								{movie?.name}
-							</text>
-						</svg>
-						{/*<p className={'film__background-text'}>{movie?.name}</p>*/}
-					</div>
-					<h4>{movie?.name}</h4>
-					<p>{movie?.id}</p>
+					{/*<div className={'film__background-text-container'}>*/}
+					{/*	/!*<svg*!/*/}
+					{/*	/!*	className={'film__background-text'}*!/*/}
+					{/*	/!*	xmlns='http://www.w3.org/2000/svg'*!/*/}
+					{/*	/!*	version='1.1'*!/*/}
+					{/*	/!*	id='svgcontent'*!/*/}
+					{/*	/!*>*!/*/}
+					{/*	/!*	<text*!/*/}
+					{/*	/!*		x={'0'}*!/*/}
+					{/*	/!*		y={'150'}*!/*/}
+					{/*	/!*		fill={'gray'}*!/*/}
+					{/*	/!*		fontFamily={'Arial, sans-serif'}*!/*/}
+					{/*	/!*		fontSize={'400px'}*!/*/}
+					{/*	/!*	>*!/*/}
+					{/*	/!*		{movie.name}*!/*/}
+					{/*	/!*	</text>*!/*/}
+					{/*	/!*	<text*!/*/}
+					{/*	/!*		x={'0'}*!/*/}
+					{/*	/!*		y={'800'}*!/*/}
+					{/*	/!*		fill={'gray'}*!/*/}
+					{/*	/!*		fontFamily={'Arial, sans-serif'}*!/*/}
+					{/*	/!*		fontSize={'400px'}*!/*/}
+					{/*	/!*	>*!/*/}
+					{/*	/!*		{movie.name}*!/*/}
+					{/*	/!*	</text>*!/*/}
+					{/*	/!*</svg>*!/*/}
+					{/*	<p className={'film__background-text'}>*/}
+					{/*		{movie.name &&*/}
+					{/*			`${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name}`}*/}
+					{/*	</p>*/}
+					{/*</div>*/}
+					<h2>{movie.name ? movie.name : movie.alternativeName}</h2>
+					{/*<p>{movie?.id}</p>*/}
 					<div className={'film__container'}>
 						<div className={'film__cover-container'}>
-							<div>
-								<StyledPoster
-									src={movie?.poster?.url}
-									alt={movie?.name}
-								/>
-								{/*<img*/}
-								{/*	src={movie?.poster?.previewUrl}*/}
-								{/*	alt={movie?.name}*/}
-								{/*/>*/}
-							</div>
+							{/*<div>*/}
+							<StyledPoster
+								src={movie?.poster?.url}
+								alt={movie?.name}
+							/>
+							{/*</div>*/}
 						</div>
 						<div className={'film__information-container'}>
 							<div className={'film__rating-container'}>
@@ -138,7 +141,6 @@ export const Film = () => {
 								array={movie}
 								additionalParms={'genre'}
 							/>
-
 							{movie?.persons?.length ? (
 								<InformationFromArrayContainer
 									title={'Актёры'}
@@ -163,11 +165,14 @@ export const Film = () => {
 									content={'Без ограничений'}
 								/>
 							)}
-							<p className={'film__description'}>
-								{movie.description}
-							</p>
+							{movie.description ? (
+								<p className={'film__description'}>
+									{movie.description}
+								</p>
+							) : null}
 						</div>
 					</div>
+					<h4 className={'film__reviews'}>Рецензии пользователей</h4>
 					<NewComment id={movie.id} />
 					<div>
 						{movie.comments

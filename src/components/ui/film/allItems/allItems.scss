@@ -1,0 +1,9 @@
+.wrap-container {
+  gap: 1rem;
+}
+
+@media screen and (width <= 980px) {
+  .wrap-container {
+    gap: 0.5rem;
+  }
+}

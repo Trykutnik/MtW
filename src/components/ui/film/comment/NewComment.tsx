@@ -13,7 +13,13 @@ export const NewComment: FC<NewCommentProps> = props => {
 	const reviewRef = useRef<HTMLTextAreaElement>(null);
 
 	const handeleAddComment = () => {
-		if (headerRef.current && reviewRef.current) {
+		if (
+			headerRef.current &&
+			headerRef.current.value &&
+			reviewRef.current &&
+			reviewRef.current.value
+		) {
+			console.log(headerRef.current);
 			dispatch(
 				addNewComment({
 					filmId: id,
@@ -27,7 +33,7 @@ export const NewComment: FC<NewCommentProps> = props => {
 	};
 	// console.log(headerRef.current.value);
 	return (
-		<div className={'new-comment'}>
+		<form action={'post'} className={'new-comment'}>
 			<input
 				ref={headerRef}
 				type={'text'}
@@ -40,12 +46,18 @@ export const NewComment: FC<NewCommentProps> = props => {
 				name={'comment-text'}
 				id={'comment-text'}
 				cols={80}
-				rows={10}
+				rows={14}
 				placeholder={'Текст'}
 				required
 				className={'new-comment__comment-text'}
 			></textarea>
-			<button onClick={handeleAddComment}>Добавить комментарий</button>
-		</div>
+			<button
+				type={'submit'}
+				onClick={handeleAddComment}
+				className={'new-comment__button'}
+			>
+				Опубликовать рецензию
+			</button>
+		</form>
 	);
 };

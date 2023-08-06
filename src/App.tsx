@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { dispatch } from 'jest-circus/build/state';
 
 import { AllItems } from './components/ui/film/allItems/allItems';
 import { Film } from './components/ui/film/film';
@@ -30,6 +29,7 @@ function App() {
 
 	console.log(movies);
 	// console.log(test);
+	console.log(window.innerWidth);
 	return (
 		<>
 			<Router>

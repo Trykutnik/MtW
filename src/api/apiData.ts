@@ -10,6 +10,8 @@ import { addToAffiche } from '../redux/reducers/moviesReducer';
 
 import { API_KEY } from './urls';
 
+export const currentYear = new Date().getFullYear();
+
 export const kp = new KinopoiskDev(API_KEY);
 
 export const movieQueryBuilder = (currentPage: number) => {
@@ -35,7 +37,7 @@ export const movieQueryBuilder = (currentPage: number) => {
 			'type',
 			'names',
 		])
-		.filterRange('year', [2020, 2023])
+		// .filterRange('year', [2020, 2023])
 		.filterRange('rating.kp', [7.5, 10])
 		// .filterRange('reviewInfo', SPECIAL_VALUE.NOT_NULL)
 		.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
@@ -71,7 +73,7 @@ export const afficheQueryBuilder = () => {
 			'reviewInfo',
 			'type',
 		])
-		.filterRange('year', [2023, 2023])
+		.filterRange('year', [currentYear, currentYear])
 		// .filterRange('rating.kp', [7.5, 10])
 		// .filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)
 		// .filterExact('ticketsOnSale', SPECIAL_VALUE.NOT_NULL)
@@ -130,6 +132,7 @@ export const findFilmQueryBuilder = (filmName: string) => {
 			'countries',
 			'persons',
 			'type',
+			'ticketsOnSale',
 		])
 		.filterExact('name', filmName)
 		.filterExact('poster.url', SPECIAL_VALUE.NOT_NULL)

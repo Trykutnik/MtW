@@ -1,7 +1,7 @@
 import { FC, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { PaginationProps } from '../../../shared/types';
+import { PaginationProps } from '../../../../shared/types';
 
 import './pagination.scss';
 

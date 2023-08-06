@@ -6,7 +6,7 @@ import { store } from './redux/store';
 import { ThemeProvider } from './themes/ThemeProvider';
 import App from './App';
 
-import './index.css';
+import './index.scss';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement,
@@ -15,6 +15,7 @@ root.render(
 	<Provider store={store}>
 		<ThemeProvider>
 			<App />
+			<div className={'background-noise'}></div>
 		</ThemeProvider>
 	</Provider>,
 );

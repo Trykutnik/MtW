@@ -5,7 +5,8 @@
 
   &__label {
     position: absolute;
-    width: 100%;
+    //width: 100%;
+    width: 66px;
     height: 100%;
     background-color: #28292c;
     border-radius: 26px;
@@ -51,6 +52,8 @@
   }
 }
 
-
-
-
+@media screen and (width <= 1260px) {
+  .theme-switcher {
+    margin-top: 10px;
+  }
+}

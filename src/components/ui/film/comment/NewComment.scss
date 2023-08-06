@@ -1,9 +1,24 @@
+@import "./src/components/shared/colors";
+
 textarea {
   resize: none;
 }
 
 .new-comment {
-  width: 60%;
+  width: 70%;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+
+  background-color: $richBlack;
+  box-shadow: 0 0rem 1.0rem 0.2rem $richBlack;
+  border-radius: 0.5rem;
+  overflow: hidden;
 
   &__comment {
     &-header, &-text {
@@ -12,5 +27,20 @@ textarea {
       font-family: "Arial Black", sans-serif;
       font-size: 1.2rem;
     }
+  }
+  &__button {
+    height: 3rem;
+     width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "Arial Black", sans-serif;
+    font-size: 1.2rem;
+  }
+}
+@media screen and (width < 980px) {
+  .new-comment {
+    margin-left: auto;
+    margin-right: auto;
   }
 }

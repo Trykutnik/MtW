@@ -14,6 +14,7 @@ export const StyledLabel = styled.label<StyledLabelProps>`
 	align-items: center;
 
 	width: 100%;
+	height: 100%;
 	padding: 0 5px;
 
 	border: 1px solid $richBlack;
@@ -24,5 +25,7 @@ export const StyledLabel = styled.label<StyledLabelProps>`
 	outline: ${({ focus }) =>
 		focus ? `3px solid ${Colors.PRUSSIAN_BLUE}` : null};
 
-	//outline: 3px solid $prussianBlue;
+	//@media (max-width: 770px) {
+	//	width: 10px;
+	//}
 `;

@@ -1,0 +1,29 @@
+@import "./src/components/shared/colors";
+
+.main-page {
+  &__heading {
+    position: relative;
+    width: fit-content;
+
+    &:after, &:before {
+      content: '';
+      position: absolute;
+      right: -20px;
+
+
+      width: 14px;
+      height: 4px;
+      background-color: $richBlack;
+    }
+
+    &:after {
+      bottom: 22px;
+      rotate: 45deg;
+    }
+
+    &:before {
+      bottom: 14px;
+      rotate: -45deg;
+    }
+  }
+}

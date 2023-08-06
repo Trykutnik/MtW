@@ -7,8 +7,9 @@ import { StoreType, useAppDispatch } from '../../../../redux/store';
 import { MovieDtoV13Extended, SliderProps } from '../../../shared/types';
 import { FilmCover } from '../filmCover/filmCover';
 
-import { Pagination } from './pagination';
+import { Pagination } from './pagination/pagination';
 
+import './allItems.scss';
 export const AllItems: FC<SliderProps> = props => {
 	const { array } = props;
 	// const [currentArray, setCurrentArray] = useState<MovieDtoV13Extended[]>([]);
@@ -73,12 +74,12 @@ export const AllItems: FC<SliderProps> = props => {
 	return (
 		<article className={'article'}>
 			<div className={'wrap-container'}>
-				{currentArray?.map(elem => (
+				{array?.map(elem => (
 					<FilmCover key={elem.id} movie={elem} />
 				))}
 			</div>
 			<div>
-				{currentArray ? (
+				{array && location.pathname !== '/affiche' ? (
 					<Pagination
 						page={currentPage}
 						lastPage={pages.movies}

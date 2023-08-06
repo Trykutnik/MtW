@@ -37,6 +37,7 @@ export interface RatingTextProps {
 
 export interface ComponentMovieProps {
 	movie: MovieDtoV13Extended;
+	blurSearch?: () => void;
 }
 
 export interface DataProps {

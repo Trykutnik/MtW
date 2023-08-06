@@ -5,7 +5,7 @@ img {
 }
 
 .film {
-position: relative;
+  position: relative;
   //overflow: hidden;
 
   &__container {
@@ -29,30 +29,105 @@ position: relative;
   &__information-container {
     width: 70%;
   }
-  &__background-text-container{
+
+  &__background-text-container {
     width: 100%;
     height: 100%;
 
     position: relative;
     //overflow: hidden;
-    //text-overflow: clip;
-    //white-space: pre-wrap;
+    text-overflow: clip;
+    white-space: pre-wrap;
   }
-  &__background-text{
+
+  &__background-text {
     margin: 0;
-    width: 3000px;
-    height: 200vh;
+    width: 100%;
+    height: 100vh;
     position: absolute;
-    z-index: 1;
+    z-index: -1;
     top: 100px;
-    left:-20%;
+    left: -150px;
     rotate: 33deg;
 
-    //color: gray;
-    //font-size: 400px;
-    //font-weight: bolder;
+    color: gray;
+    font-size: 150px;
+    font-weight: bolder;
   }
+
   &__description {
-    background-color: $peach;
+    margin-top: 1rem;
+    padding: 0.5rem;
+
+    background-color: $lightBlackColor;
+    color: $whiteColor;
+    //background: linear-gradient(to bottom, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+    box-shadow: 0 1rem 1.5rem 0.2rem $richBlack;
+    border-radius: 0.5rem;
+  }
+  &__reviews {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (width < 1440px) {
+  .film {
+
+    &__container {
+      //flex-direction: column;
+    }
+
+    //
+    //&__cover-container {
+    //  width: 30%;
+    //  margin-left: 1rem;
+    //}
+    //
+    //&__rating-container {
+    //  display: flex;
+    //  justify-content: left;
+    //  gap: 5rem;
+    //
+    //  padding: 0 0.5rem;
+    //}
+    //
+    //&__information-container {
+    //  width: 70%;
+    //}
+    &__background-text-container {
+      display: none;
+    }
+
+    //&__description {
+    //  margin-top: 1rem;
+    //  padding: 0.5rem;
+    //
+    //  background-color: $lightBlackColor;
+    //  color: $whiteColor;
+    //  //background: linear-gradient(to bottom, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+    //  box-shadow: 0 1rem 1.5rem 0.2rem $richBlack;
+    //  border-radius: 0.5rem;
+    //}
+  }
+  @media screen and (width < 980px) {
+    .film {
+
+      &__container {
+        flex-direction: column;
+        justify-content: center;
+      }
+      &__cover-container {
+          width: 50%;
+        align-self: center;
+        }
+
+        &__rating-container {
+          margin-top: 2rem;
+        }
+
+        &__information-container {
+          width: 100%;
+        }
+    }
   }
 }

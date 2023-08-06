@@ -1,7 +1,12 @@
 @import "./src/components/shared/colors";
 
 .header {
-  height: 4rem;
+  position: sticky;
+  left: 0;
+  top: 0;
+
+  padding: 0.2rem;
+  z-index: 2;
 
   display: flex;
   align-items: center;
@@ -9,19 +14,30 @@
 
   //background-color: #3F190E;
   //background-color: #F2c288;
-  background-color: #a2a2a2;
+  background-color: $grayColor;
 
   &__container.article {
     padding: 0 2rem;
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 4rem;
+    //gap: 4rem;
     justify-content: space-between;
+  }
+
+  &__menu-container {
+    //width: 50%;
+    width: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
   }
 
   &__menu {
     display: flex;
+    gap: 0.5rem;
   }
 
   &__logo-container {
@@ -32,26 +48,8 @@
     height: 100%;
   }
 
-  //&__input-container {
-  //  display: flex;
-  //  gap: 5px;
-  //  align-items: center;
-  //
-  //  width: 20%;
-  //  padding: 0 5px;
-  //
-  //  border: 1px solid $richBlack;
-  //  border-radius: 1rem;
-  //  background-color: $whiteColor;
-  //  overflow: hidden;
-  //
-  //  &:focus-visible {
-  //    outline: 3px solid $prussianBlue;
-  //  }
-  //}
-
   &__input {
-    height: 2rem;
+    height: 100%;
     width: 100%;
 
     border: none;
@@ -78,6 +76,10 @@
   &__form {
     position: relative;
     width: 300px;
+
+    display: flex;
+    align-items: center;
+
     background-color: $whiteColor;
     border-radius: 1rem;
   }
@@ -91,7 +93,230 @@
     padding: 0.5rem;
 
     box-shadow: 0 1rem 1.5rem 0.2rem $richBlack;
-    background-color: #008b66;
+    background-color: $cerulean;
     border-radius: 0.7rem;
+
+    &-mobile {
+      display: none;
+    }
+  }
+}
+
+.burger__checkbox {
+  display: none;
+
+  &-label {
+    display: none;
+  }
+}
+
+.footer {
+  background-color: $richBlack;
+  width: 100%;
+
+  &__text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+
+    line-height: 2rem;
+    color: $lightGrayColor;
+  }
+}
+
+.navlink {
+  &-main {
+    font-size: 36px;
+    font-weight: 500;
+    color: $prussianBlue;
+
+    text-decoration: none;
+
+    &:hover {
+      color: $cerulean;
+      transform: scale(0.95);
+      transition: 0.2s ease-out;
+    }
+  }
+}
+
+@media screen and (width <= 1260px) {
+  .header {
+    display: flex;
+    align-items: flex-start;
+
+    &__container.article {
+      align-items: flex-start;
+      //gap: 4rem;
+      justify-content: space-between;
+    }
+
+    &__menu {
+      display: none;
+
+      &-container {
+        margin-top: 3px;
+      }
+    }
+
+    &__logo-container {
+      margin-left: 1.2rem;
+    }
+
+    &__input {
+      &-button {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
+    &__search {
+      width: 100%;
+      height: 96vh;
+
+      overflow: scroll;
+      overflow-x: hidden;
+
+      border-radius: 0;
+    }
+
+    &__cross-container {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: absolute;
+      right: 5px;
+      top: 10px;
+
+      border: none;
+      background-color: $whiteColor;
+    }
+
+    &__cross {
+      display: inline-block;
+      position: relative;
+      width: 24px;
+      height: 3px;
+      transform: rotate(45deg);
+      background-color: #000000;
+      z-index: 3;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 24px;
+        height: 3px;
+        transform: rotate(90deg);
+
+        background-color: #000000;
+      }
+    }
+  }
+
+  .burger {
+    &__checkbox-label {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      left: 3px;
+      top: 5px;
+      width: 56px;
+      height: 56px;
+      z-index: 1;
+
+      &-line {
+        display: inline-block;
+        position: relative;
+        width: 24px;
+        height: 3px;
+        background-color: #000000;
+
+        &::after,
+        &::before {
+          content: '';
+          display: inline-block;
+          position: absolute;
+          height: 3px;
+          background-color: #000000;
+        }
+
+        &::after {
+          width: 24px;
+          top: -7px;
+          left: 0;
+        }
+
+        &::before {
+          width: 14px;
+          bottom: -7px;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .burger__checkbox:checked + .burger__checkbox-label > .burger__checkbox-label-line {
+    transform: rotate(45deg);
+    transition: all 0.2s;
+  }
+
+  .burger__checkbox:checked + .burger__checkbox-label > .burger__checkbox-label-line::after {
+    transform: rotate(90deg);
+    top: 0;
+    left: 0;
+    transition: all 0.2s;
+  }
+
+  .burger__checkbox:checked + .burger__checkbox-label > .burger__checkbox-label-line::before {
+    display: none;
+    transition: all 0.2s;
+  }
+
+  .burger__checkbox + .burger__checkbox-label > .burger__checkbox-label-line,
+  .burger__checkbox + .burger__checkbox-label > .burger__checkbox-label-line::after,
+  .burger__checkbox + .burger__checkbox-label > .burger__checkbox-label-line::before {
+    transition: all 0.2s;
+  }
+  .burger__checkbox:checked ~ .header__menu-container {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    //padding-top: 5px;
+  }
+  .burger__checkbox:checked ~ .header__menu-container .header__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  //.burger__checkbox:checked ~ .header__container .header__menu-container .profile-container {
+  //  width: 53px;
+  //}
+
+  @media screen and (width < 770px) {
+    .header {
+      &__form {
+        width: fit-content;
+      }
+
+      &__input {
+        display: none;
+      }
+
+      &__form, &__input-button {
+        background-color: $grayColor;
+      }
+    }
   }
 }

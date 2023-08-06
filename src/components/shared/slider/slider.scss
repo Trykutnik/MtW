@@ -76,4 +76,80 @@
     //height: 15%;
     margin: 0;
   }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    color: $prussianBlue;
+    text-decoration: none;
+
+    transition: all 0.2s ease-out;
+    //font-size: 32px;
+    //transform: rotate(45deg);
+    &-circle {
+      position: relative;
+
+      height: 5rem;
+      width: 5rem;
+
+      border-radius: 50%;
+      background-color: $prussianBlue;
+    }
+
+    &-line {
+      content: '';
+      position: absolute;
+      left: 17%;
+      top: calc(50% - 4px);
+
+      width: 50px;
+      height: 8px;
+
+      background-color: $whiteColor;
+
+      &:after, &:before {
+        content: '';
+        position: absolute;
+        right: -7px;
+
+        width: 34px;
+        height: 8px;
+
+        background-color: $whiteColor;
+      }
+
+      &:after {
+        bottom: 10px;
+        rotate: 45deg;
+      }
+
+      &:before {
+        bottom: -10px;
+        rotate: -45deg;
+      }
+    }
+
+    &-text {
+      margin-top: 0.5rem;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+
+.rec-carousel-item-visible:last-child .rec-item-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.rec-carousel-item-visible:last-child:hover .rec-item-wrapper div .slider__link .slider__link-circle {
+  background-color: $cerulean;
+}
+
+.rec-carousel-item-visible:last-child:hover .rec-item-wrapper div .slider__link {
+  scale: 0.96;
 }

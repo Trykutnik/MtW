@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { ComponentMovieProps } from '../../../shared/types';
+
+import { StyledSpan } from './styled/StyledSpan';
 
 import './filmCover.scss';
 
@@ -23,10 +25,20 @@ export const FilmCover: FC<ComponentMovieProps> = props => {
 					alt={`${movie.name} image`}
 					className={'film-cover__img'}
 				/>
-				<span className={'film-cover__rating'}>
-					{movie.rating?.kp?.toFixed(1)}
-				</span>
+				<StyledSpan
+					rating={movie.rating?.kp ? movie.rating?.kp : 0}
+					className={'film-cover__rating'}
+				>
+					{movie.rating?.kp && movie.rating?.kp > 0
+						? movie.rating?.kp?.toFixed(1)
+						: 'Нет оценок'}
+				</StyledSpan>
 			</div>
+			<p>
+				{movie.name
+					? movie.name + ' ' + movie.year
+					: movie.alternativeName + ' ' + movie.year}
+			</p>
 			<p>
 				{movie.genres
 					? movie.genres

@@ -11,6 +11,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
 	afficheQueryBuilder,
 	commentQueryBuilder,
+	currentYear,
 	findFilmQueryBuilder,
 	kp,
 	movieQueryBuilder,
@@ -173,6 +174,17 @@ const moviesSlice = createSlice({
 			action: PayloadAction<Array<MovieDtoV13Extended>>,
 		) => {
 			// state.searchValues.forEach(elem => elem.myType)
+			action.payload.forEach(elem => {
+				if (
+					elem.ticketsOnSale &&
+					elem.year &&
+					elem.year >= currentYear
+				) {
+					elem.myType = 'affiche';
+				} else {
+					elem.myType = 'films';
+				}
+			});
 			state.searchValues = action.payload;
 		},
 		addOneFilm: (state, action: PayloadAction<AddOneFilmProps>) => {
@@ -183,8 +195,13 @@ const moviesSlice = createSlice({
 				currentFilm.myType = action.payload.type;
 				switch (action.payload.type) {
 					case 'affiche':
-						if (state.affiche) {
-							action.payload.film.myType = 'affiche';
+						if (
+							state.affiche &&
+							!state.affiche.filter(
+								elem => elem.id === action.payload.film.id,
+							).length
+						) {
+							// action.payload.film.myType = 'affiche';
 							state.affiche.push(action.payload.film);
 						}
 						break;
@@ -192,8 +209,17 @@ const moviesSlice = createSlice({
 					// 	if (state.tv-series) state.tv-series.push(action.payload.film);
 					// 	break;
 					default:
-						if (state.movies) {
-							currentFilm.myType = 'films';
+						if (
+							state.movies &&
+							!state.movies.filter(
+								elem => elem.id === action.payload.film.id,
+							).length &&
+							state.affiche &&
+							!state.affiche.filter(
+								elem => elem.id === action.payload.film.id,
+							).length
+						) {
+							// currentFilm.myType = 'films';
 							// action.payload.film.myType = 'films';
 							state.movies.push(currentFilm);
 						}

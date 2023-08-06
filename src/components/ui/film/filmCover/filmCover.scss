@@ -1,34 +1,33 @@
 @import "./src/components/shared/colors";
 
-.film-cover{
+.film-cover {
   max-width: 300px;
   height: 32rem;
 
   //display: flex;
   //flex-wrap: wrap;
-  &__img-container{
+  &__img-container {
     position: relative;
     height: 87%;
 
     overflow: hidden;
-border-radius: 1rem;
+    border-radius: 1rem;
   }
-  &__img{
+
+  &__img {
     height: 100%;
     object-fit: cover;
   }
 
-&__rating{
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 0.2rem 0.7rem;
+  &__rating {
 
-  font-size: xx-large;
-
-  border-radius: 0.6rem;
-  color: $cornsilk;
-  background-color: $cerulean;
-  //rotate: 45deg;
+    //rotate: 45deg;
+  }
 }
+
+@media screen and (width <= 980px) {
+  .film-cover {
+    max-width: 170px;
+    height: 18rem;
+  }
 }
