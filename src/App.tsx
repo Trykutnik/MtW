@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -6,10 +6,11 @@ import { AllItems } from './components/ui/film/allItems/allItems';
 import { Film } from './components/ui/film/film';
 import { Header } from './components/ui/header/header';
 import { MainPage } from './components/ui/mainPage/mainPage';
+import { Page404 } from './components/ui/page404/Page404';
 import {
-	findFilm,
 	getAffiche,
 	getMovies,
+	getTvSeries,
 } from './redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from './redux/store';
 
@@ -17,18 +18,16 @@ import './App.scss';
 
 function App() {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
-	const { movies, affiche } = stateFromStore;
+	const { movies, affiche, tvSeries } = stateFromStore;
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(getMovies(1));
-		// dispatch(getMovies(2));
 		dispatch(getAffiche());
-		// dispatch(findFilm('Человек'));
+		dispatch(getTvSeries(1));
 	}, []);
 
 	console.log(movies);
-	// console.log(test);
 	console.log(window.innerWidth);
 	return (
 		<>
@@ -57,8 +56,16 @@ function App() {
 							path='affiche'
 							element={<AllItems array={affiche} />}
 						/>
+						<Route
+							path='tv-series'
+							element={<AllItems array={tvSeries} />}
+						/>
+						<Route
+							path='tv-series/:page'
+							element={<AllItems array={tvSeries} />}
+						/>
 					</Route>
-					{/*<Route path='*' element={<Page404 />} />*/}
+					<Route path='*' element={<Page404 />} />
 				</Routes>
 			</Router>
 		</>

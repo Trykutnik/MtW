@@ -7,7 +7,9 @@ img {
 .film {
   position: relative;
   //overflow: hidden;
-
+&__name {
+  font-family: "Dela Gothic One", sans-serif;
+}
   &__container {
     display: flex;
     flex-direction: row-reverse;
@@ -25,7 +27,9 @@ img {
 
     padding: 0 0.5rem;
   }
-
+  //&__information {
+  //  row-gap: 0.7rem;
+  //}
   &__information-container {
     width: 70%;
   }
@@ -65,8 +69,11 @@ img {
     box-shadow: 0 1rem 1.5rem 0.2rem $richBlack;
     border-radius: 0.5rem;
   }
+
   &__reviews {
     margin-top: 1rem;
+
+    font-family: "Dela Gothic One", sans-serif;
   }
 }
 
@@ -109,25 +116,41 @@ img {
     //  border-radius: 0.5rem;
     //}
   }
-  @media screen and (width < 980px) {
-    .film {
 
-      &__container {
-        flex-direction: column;
-        justify-content: center;
-      }
-      &__cover-container {
-          width: 50%;
-        align-self: center;
-        }
+}
 
-        &__rating-container {
-          margin-top: 2rem;
-        }
+@media screen and (width < 980px) {
+  .film {
 
-        &__information-container {
-          width: 100%;
-        }
+    &__container {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__cover-container {
+      width: 50%;
+      align-self: center;
+      margin-top: 1rem;
+    }
+
+    &__rating-container {
+      margin-top: 2rem;
+    }
+
+    &__information-container {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (width < 480px) {
+  .film {
+    &__information {
+      height: 5rem;
+
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
     }
   }
 }

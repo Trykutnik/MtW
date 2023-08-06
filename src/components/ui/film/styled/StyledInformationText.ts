@@ -7,4 +7,9 @@ export const StyledInformationText = styled.p`
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+
+	@media screen and (max-width: 480px) {
+		width: 100%;
+		text-align: center;
+	}
 `;

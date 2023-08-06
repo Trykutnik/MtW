@@ -1,7 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
 import { MovieDtoV13, Review } from '@openmoviedb/kinopoiskdev_client';
-
-import { NewComment } from '../ui/film/comment/NewComment';
 
 export interface InformationContainerProps {
 	title:
@@ -64,6 +61,7 @@ export interface PaginationProps {
 	page: number;
 	lastPage: number;
 	setCurrentPage: (page: number) => void;
+	arrayType: MyType;
 }
 
 export interface MoviesProps {
@@ -86,4 +84,9 @@ export interface AddNewCommentProps {
 	filmId: number;
 	title: string;
 	review: string;
+}
+
+export interface addPagesProps {
+	arrayType: MyType;
+	lastPage: number;
 }

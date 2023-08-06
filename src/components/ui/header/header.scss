@@ -127,16 +127,17 @@
 
 .navlink {
   &-main {
-    font-size: 36px;
-    font-weight: 500;
+    font-size: 30px;
+    //font-weight: 500;
     color: $prussianBlue;
 
     text-decoration: none;
+    transition: all 0.2s ease-out;
 
+    font-family: "Dela Gothic One", sans-serif;
     &:hover {
       color: $cerulean;
       transform: scale(0.95);
-      transition: 0.2s ease-out;
     }
   }
 }
@@ -173,7 +174,6 @@
 
     &__search {
       width: 100%;
-      height: 96vh;
 
       overflow: scroll;
       overflow-x: hidden;
@@ -303,19 +303,28 @@
   //.burger__checkbox:checked ~ .header__container .header__menu-container .profile-container {
   //  width: 53px;
   //}
-
-  @media screen and (width < 770px) {
+  @media screen and (width <= 980px) {
     .header {
-      &__form {
-        width: fit-content;
-      }
 
-      &__input {
-        display: none;
-      }
+    }
+    @media screen and (width <= 770px) {
+      .header {
+        &__form {
+          width: fit-content;
+        }
 
-      &__form, &__input-button {
-        background-color: $grayColor;
+        &__input {
+          display: none;
+        }
+
+        &__form, &__input-button {
+          background-color: $grayColor;
+        }
+
+        &__search {
+          width: 100%;
+          height: 96vh;
+        }
       }
     }
   }

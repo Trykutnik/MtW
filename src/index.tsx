@@ -6,6 +6,7 @@ import { store } from './redux/store';
 import { ThemeProvider } from './themes/ThemeProvider';
 import App from './App';
 
+import './fonts/fonts.scss';
 import './index.scss';
 
 const root = ReactDOM.createRoot(

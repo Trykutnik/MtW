@@ -8,7 +8,7 @@ import { StyledInformationText } from './styled/StyledInformationText';
 export const InformationContainer: FC<InformationContainerProps> = props => {
 	const { title, content, additionalContent } = props;
 	return (
-		<StyledInformationContainer>
+		<StyledInformationContainer className={'film__information'}>
 			<p>{title + ':'}</p>
 			<StyledInformationText>
 				{additionalContent

@@ -4,7 +4,9 @@
   &carousel {
     position: relative;
   }
-
+  &dot {
+    box-shadow: 0 0 1px 2px $grayColor;
+  }
   &arrow {
     position: absolute;
     top: calc(50% - 40px);
@@ -53,6 +55,7 @@
 
   &pagination {
     margin: 0;
+    justify-content: center;
   }
 }
 
@@ -98,7 +101,6 @@
       width: 5rem;
 
       border-radius: 50%;
-      background-color: $prussianBlue;
     }
 
     &-line {
@@ -109,29 +111,6 @@
 
       width: 50px;
       height: 8px;
-
-      background-color: $whiteColor;
-
-      &:after, &:before {
-        content: '';
-        position: absolute;
-        right: -7px;
-
-        width: 34px;
-        height: 8px;
-
-        background-color: $whiteColor;
-      }
-
-      &:after {
-        bottom: 10px;
-        rotate: 45deg;
-      }
-
-      &:before {
-        bottom: -10px;
-        rotate: -45deg;
-      }
     }
 
     &-text {

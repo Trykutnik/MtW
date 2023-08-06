@@ -6,7 +6,7 @@ export const StyledInformationContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 0.7rem;
+	column-gap: 0.7rem;
 
 	height: 4rem;
 	width: 100%;

@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { Review } from '@openmoviedb/kinopoiskdev_client';
 
 import { getComments } from '../../../redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from '../../../redux/store';
+import { ThemeContext } from '../../../themes/ThemeProvider';
+import { ContainerShared } from '../../shared/styled/ContainerShared';
 import { MovieDtoV13Extended } from '../../shared/types';
 
 import { Comment } from './comment/Comment';
@@ -19,6 +21,8 @@ import './film.scss';
 export const Film = () => {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
 	const { movies, affiche } = stateFromStore;
+	const { themeType } = useContext(ThemeContext);
+
 	const dispatch = useAppDispatch();
 
 	const location = useLocation();
@@ -58,7 +62,7 @@ export const Film = () => {
 	return (
 		<article className={'film article'}>
 			{movie ? (
-				<div className={'film__wrapper'}>
+				<ContainerShared theme={themeType} className={'film__wrapper'}>
 					{/*<div className={'film__background-text-container'}>*/}
 					{/*	/!*<svg*!/*/}
 					{/*	/!*	className={'film__background-text'}*!/*/}
@@ -90,7 +94,9 @@ export const Film = () => {
 					{/*			`${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name}`}*/}
 					{/*	</p>*/}
 					{/*</div>*/}
-					<h2>{movie.name ? movie.name : movie.alternativeName}</h2>
+					<h2 className={'film__name'}>
+						{movie.name ? movie.name : movie.alternativeName}
+					</h2>
 					{/*<p>{movie?.id}</p>*/}
 					<div className={'film__container'}>
 						<div className={'film__cover-container'}>
@@ -181,7 +187,7 @@ export const Film = () => {
 							  ))
 							: null}
 					</div>
-				</div>
+				</ContainerShared>
 			) : null}
 		</article>
 	);

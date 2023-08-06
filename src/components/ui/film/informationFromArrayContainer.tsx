@@ -10,9 +10,9 @@ export const InformationFromArrayContainer: FC<
 > = props => {
 	const { title, array, additionalParms } = props;
 	return (
-		<StyledInformationContainer>
+		<StyledInformationContainer className={'film__information'}>
 			<p>{title + ':'}</p>
-			<StyledInformationText>
+			<StyledInformationText className={'film__information-data'}>
 				{additionalParms === 'person'
 					? array.persons
 							?.reduce((acc, elem) => {

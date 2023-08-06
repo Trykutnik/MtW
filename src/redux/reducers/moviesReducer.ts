@@ -1,11 +1,4 @@
-import {
-	MovieDocsResponseDtoV13,
-	MovieQueryBuilder,
-	Review,
-	ReviewQueryBuilder,
-	SORT_TYPE,
-	SPECIAL_VALUE,
-} from '@openmoviedb/kinopoiskdev_client';
+import { Review } from '@openmoviedb/kinopoiskdev_client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
@@ -15,10 +8,12 @@ import {
 	findFilmQueryBuilder,
 	kp,
 	movieQueryBuilder,
+	tvSeriesQueryBuilder,
 } from '../../api/apiData';
 import {
 	AddNewCommentProps,
 	AddOneFilmProps,
+	addPagesProps,
 	MovieDtoV13Extended,
 	MoviesProps,
 	MyType,
@@ -27,24 +22,25 @@ import {
 const initialState: initialStateProps = {
 	movies: [],
 	affiche: [],
-	pages: { movies: 0 },
+	tvSeries: [],
+	pages: { movies: 0, tvSeries: 0 },
 	isLoading: false,
 	error: null,
-	// test: [],
 };
 
 interface initialStateProps {
 	movies: MovieDtoV13Extended[] | undefined;
 	affiche: MovieDtoV13Extended[] | undefined;
+	tvSeries: MovieDtoV13Extended[] | undefined;
 	searchValues?: MovieDtoV13Extended[] | undefined;
 	pages: PagesProps;
 	isLoading: boolean;
 	error: string | null | unknown;
-	// test: number[];
 }
 
 interface PagesProps {
 	movies: number;
+	tvSeries: number;
 }
 
 export const getMovies = createAsyncThunk<void, number>(
@@ -55,8 +51,8 @@ export const getMovies = createAsyncThunk<void, number>(
 		);
 
 		if (data) {
-			const { docs, page, limit } = data;
-			console.log(`Страница ${page} из ${limit}`);
+			const { docs, page, pages } = data;
+			console.log(`Страница ${page} из ${pages} фильмы`);
 			console.log(docs);
 			dispatch(
 				addToMovies({
@@ -65,7 +61,7 @@ export const getMovies = createAsyncThunk<void, number>(
 					type: 'films',
 				}),
 			);
-			dispatch(addPages(limit));
+			dispatch(addPages({ arrayType: 'films', lastPage: pages }));
 			// dispatch(addPageToMovies(page));
 			// dispatch(addType('films'));
 		}
@@ -86,8 +82,8 @@ export const getAffiche = createAsyncThunk<void, void>(
 		);
 
 		if (data) {
-			const { docs, page, limit } = data;
-			console.log(`Страница ${page} из ${limit}`);
+			const { docs, page, pages } = data;
+			console.log(`Страница ${page} из ${pages} аффиша`);
 			console.log(docs);
 			// dispatch(addToAffiche(data.docs));
 			// dispatch(addType({ type: 'affiche', page: 1 }));
@@ -96,6 +92,37 @@ export const getAffiche = createAsyncThunk<void, void>(
 			dispatch(addType('affiche'));
 		}
 
+		if (error) {
+			console.log(error, message);
+			rejectWithValue(error);
+		}
+	},
+);
+
+export const getTvSeries = createAsyncThunk<void, number>(
+	'movies/getTvSeries',
+	async (currentPage, { rejectWithValue, dispatch }) => {
+		const { data, error, message } = await kp.movie.getByFilters(
+			tvSeriesQueryBuilder(currentPage),
+		);
+		if (data) {
+			const { docs, page, pages } = data;
+			console.log(`Страница ${page} из ${pages} сериалы`);
+			console.log(docs);
+			console.log('DATA', data);
+			dispatch(
+				addToTvSeries({
+					filmsArray: docs,
+					page: currentPage,
+					type: 'tv-series',
+				}),
+			);
+			dispatch(addPages({ arrayType: 'tv-series', lastPage: pages }));
+			// dispatch(addPageToMovies(page));
+			// dispatch(addType('films'));
+		}
+
+		// Если будет ошибка, то выведем ее в консоль
 		if (error) {
 			console.log(error, message);
 			rejectWithValue(error);
@@ -169,6 +196,15 @@ const moviesSlice = createSlice({
 		) => {
 			state.affiche = action.payload;
 		},
+		addToTvSeries: (state, action: PayloadAction<MoviesProps>) => {
+			if (state.tvSeries) {
+				action.payload.filmsArray?.forEach(elem => {
+					elem.page = action.payload.page;
+					return (elem.myType = action.payload.type);
+				});
+				state.tvSeries.push(...(action.payload.filmsArray || []));
+			}
+		},
 		addToSearch: (
 			state,
 			action: PayloadAction<Array<MovieDtoV13Extended>>,
@@ -205,9 +241,16 @@ const moviesSlice = createSlice({
 							state.affiche.push(action.payload.film);
 						}
 						break;
-					// case 'tv-series':
-					// 	if (state.tv-series) state.tv-series.push(action.payload.film);
-					// 	break;
+					case 'tv-series':
+						if (
+							state.tvSeries &&
+							!state.tvSeries.filter(
+								elem => elem.id === action.payload.film.id,
+							).length
+						) {
+							state.tvSeries.push(action.payload.film);
+						}
+						break;
 					default:
 						if (
 							state.movies &&
@@ -226,14 +269,6 @@ const moviesSlice = createSlice({
 				}
 			}
 		},
-		// addTypeToOneFilm: (state, action: PayloadAction<AddOneFilmProps>) => {
-		// 	if (state.searchValues) {
-		// 		state.searchValues.filter(
-		// 			elem => (elem.id = action.payload.film.id),
-		// 		)[0].myType = action.payload.type;
-		// 		// .forEach(elem => (elem.myType = action.payload));
-		// 	}
-		// },
 		addType: (state, action: PayloadAction<MyType>) => {
 			if (state.movies && action.payload === 'films') {
 				state.movies.forEach(elem => (elem.myType = action.payload));
@@ -241,17 +276,17 @@ const moviesSlice = createSlice({
 			if (state.affiche && action.payload === 'affiche') {
 				state.affiche.forEach(elem => (elem.myType = action.payload));
 			}
+			if (state.tvSeries && action.payload === 'tv-series') {
+				state.tvSeries.forEach(elem => (elem.myType = action.payload));
+			}
 		},
-		// addPageToMovies: (state, action: PayloadAction<number>) => {
-		// 	if (state.movies) {
-		// 		state.movies.forEach(elem => (elem.page = action.payload));
-		// 	}
-		// 	if (state.affiche) {
-		// 		state.affiche.forEach(elem => (elem.page = action.payload));
-		// 	}
-		// },
-		addPages: (state, action: PayloadAction<number>) => {
-			state.pages.movies = action.payload;
+		addPages: (state, action: PayloadAction<addPagesProps>) => {
+			if (action.payload.arrayType === 'films') {
+				state.pages.movies = action.payload.lastPage;
+			}
+			if (action.payload.arrayType === 'tv-series') {
+				state.pages.tvSeries = action.payload.lastPage;
+			}
 		},
 		addToMoviesComments: (state, action: PayloadAction<Array<Review>>) => {
 			if (
@@ -354,6 +389,7 @@ export const {
 	addToSearch,
 	addOneFilm,
 	addNewComment,
+	addToTvSeries,
 } = moviesSlice.actions;
 
 export const usersReducer = moviesSlice.reducer;

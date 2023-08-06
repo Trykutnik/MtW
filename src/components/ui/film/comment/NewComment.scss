@@ -16,7 +16,7 @@ textarea {
   gap: 8px;
 
   background-color: $richBlack;
-  box-shadow: 0 0rem 1.0rem 0.2rem $richBlack;
+  box-shadow: 0 0 1.0rem 0.2rem $richBlack;
   border-radius: 0.5rem;
   overflow: hidden;
 
@@ -42,5 +42,17 @@ textarea {
   .new-comment {
     margin-left: auto;
     margin-right: auto;
+    &__button {
+      width: fit-content;
+    }
+  }
+  @media screen and (width < 640px) {
+    .new-comment {
+      width: 100%;
+      &__button {
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
   }
 }
