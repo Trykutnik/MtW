@@ -152,5 +152,10 @@ img {
       justify-content: center;
       align-items: flex-start;
     }
+
+    &__rating-container {
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
   }
 }

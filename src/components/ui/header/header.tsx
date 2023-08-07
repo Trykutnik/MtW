@@ -1,19 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useDebounce, useDebouncedCallback } from 'use-debounce';
+import { useDebouncedCallback } from 'use-debounce';
 
-import {
-	addToSearch,
-	findFilm,
-	getAffiche,
-	getMovies,
-} from '../../../redux/reducers/moviesReducer';
+import { findFilm } from '../../../redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from '../../../redux/store';
-import noImage from '../noImage.jpg';
 
 import logo from './icons/logo.svg';
+import profileIcon from './icons/Profile.svg';
 import searchIcon from './icons/search.svg';
 import { SearchContainer } from './search/searchContainer';
 import { StyledDiv } from './styled/StyledDiv';
@@ -37,10 +32,10 @@ export const Header = () => {
 		() => dispatch(findFilm(inputValue)),
 		1000,
 	);
-	const debounceOnChangeEmpty = useDebouncedCallback(
-		() => dispatch(addToSearch([])),
-		1000,
-	);
+	// const debounceOnChangeEmpty = useDebouncedCallback(
+	// 	() => dispatch(addToSearch([])),
+	// 	1000,
+	// );
 
 	// useEffect(() => {
 	// 	if (inputValue === '') {
@@ -61,8 +56,6 @@ export const Header = () => {
 	const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value);
 		if (event.target.value !== '') {
-			console.log('Popal if');
-			console.log(event.target.value);
 			return debounceOnChange();
 		}
 	};
@@ -144,22 +137,6 @@ export const Header = () => {
 							/>
 						</div>
 					</NavLink>
-					{/*<NavLink*/}
-					{/*	to='/signUp'*/}
-					{/*	className={({ isActive }) =>*/}
-					{/*		isActive ? 'link-active navlink' : 'navlink'*/}
-					{/*	}*/}
-					{/*>*/}
-					{/*	<p>SignUp</p>*/}
-					{/*</NavLink>*/}
-					{/*<NavLink*/}
-					{/*	to='/users'*/}
-					{/*	className={({ isActive }) =>*/}
-					{/*		isActive ? 'link-active navlink' : 'navlink'*/}
-					{/*	}*/}
-					{/*>*/}
-					{/*	<p>Users</p>*/}
-					{/*</NavLink>*/}
 					<div className={'header__menu-container'}>
 						<nav className='header__menu'>
 							<NavLink
@@ -215,7 +192,7 @@ export const Header = () => {
 									onChange={handleChangeValue}
 									onFocus={setFocus}
 									onBlur={setBlur}
-									// autoComplete={'off'}
+									autoComplete={'off'}
 								/>
 								<button
 									className={'header__input-button'}
@@ -253,6 +230,20 @@ export const Header = () => {
 						</form>
 					</div>
 					{/*</div>*/}
+					<NavLink
+						to='/login'
+						className={({ isActive }) =>
+							isActive ? 'link-active navlink' : 'navlink'
+						}
+					>
+						<div className='header__profile-container'>
+							<img
+								className='header__profile-img'
+								src={profileIcon}
+								alt='profile'
+							/>
+						</div>
+					</NavLink>
 					<ThemeSwitcher />
 				</div>
 			</article>

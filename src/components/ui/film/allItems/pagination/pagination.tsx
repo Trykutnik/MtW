@@ -1,13 +1,18 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { ThemeContext } from '../../../../../themes/ThemeProvider';
 import { PaginationProps } from '../../../../shared/types';
+
+import { StyledPage } from './styled/StyledPage';
 
 import './pagination.scss';
 
 export const Pagination: FC<PaginationProps> = props => {
 	const { lastPage, setCurrentPage, page, arrayType } = props;
 	const pagesArr = [];
+	const { themeType } = useContext(ThemeContext);
+
 	for (let i = 1; i <= lastPage; i++) {
 		pagesArr.push(i);
 	}
@@ -19,17 +24,22 @@ export const Pagination: FC<PaginationProps> = props => {
 					<NavLink
 						to={`/${arrayType}/1`}
 						onClick={() => setCurrentPage(1)}
+						className={({ isActive }) =>
+							isActive ? 'link-active navlink' : 'navlink'
+						}
 					>
-						<p>1</p>
+						<StyledPage theme={themeType}>1</StyledPage>
 					</NavLink>
 				) : null}
-				{page > 5 ? <p>...</p> : null}
+				{page > 5 ? (
+					<StyledPage theme={themeType}>...</StyledPage>
+				) : null}
 				{page === 5 ? (
 					<NavLink
 						to={`/${arrayType}/2`}
 						onClick={() => setCurrentPage(2)}
 					>
-						<p>2</p>
+						<StyledPage theme={themeType}>2</StyledPage>
 					</NavLink>
 				) : null}
 				{page > 3 ? (
@@ -37,7 +47,7 @@ export const Pagination: FC<PaginationProps> = props => {
 						to={`/${arrayType}/${page - 2}`}
 						onClick={() => setCurrentPage(page - 2)}
 					>
-						<p>{page - 2}</p>
+						<StyledPage theme={themeType}>{page - 2}</StyledPage>
 					</NavLink>
 				) : null}
 				{page === 1 ? null : (
@@ -45,21 +55,24 @@ export const Pagination: FC<PaginationProps> = props => {
 						to={`/${arrayType}/${page - 1}`}
 						onClick={() => setCurrentPage(page - 1)}
 					>
-						<p>{page - 1}</p>
+						<StyledPage theme={themeType}>{page - 1}</StyledPage>
 					</NavLink>
 				)}
 				<NavLink
 					to={`/${arrayType}/${page}`}
 					onClick={() => setCurrentPage(page)}
+					className={({ isActive }) =>
+						isActive ? 'link-active navlink' : 'navlink'
+					}
 				>
-					<p>{page}</p>
+					<StyledPage theme={themeType}>{page}</StyledPage>
 				</NavLink>
 				{page < lastPage - 1 ? (
 					<NavLink
 						to={`/${arrayType}/${page + 1}`}
 						onClick={() => setCurrentPage(page + 1)}
 					>
-						<p>{page + 1}</p>
+						<StyledPage theme={themeType}>{page + 1}</StyledPage>
 					</NavLink>
 				) : null}
 				{page < lastPage - 2 ? (
@@ -67,7 +80,7 @@ export const Pagination: FC<PaginationProps> = props => {
 						to={`/${arrayType}/${page + 2}`}
 						onClick={() => setCurrentPage(page + 2)}
 					>
-						<p>{page + 2}</p>
+						<StyledPage theme={themeType}>{page + 2}</StyledPage>
 					</NavLink>
 				) : null}
 				{page < lastPage - 3 ? (
@@ -75,24 +88,32 @@ export const Pagination: FC<PaginationProps> = props => {
 						to={`/${arrayType}/${page + 3}`}
 						onClick={() => setCurrentPage(page + 3)}
 					>
-						<p>{page + 3}</p>
+						<StyledPage theme={themeType}>{page + 3}</StyledPage>
 					</NavLink>
 				) : null}
-				{page < lastPage - 5 ? <p>...</p> : null}
+				{page < lastPage - 5 ? (
+					<StyledPage theme={themeType}>...</StyledPage>
+				) : null}
 				{page === lastPage - 5 ? (
 					<NavLink
 						to={`/${arrayType}/${page + 4}`}
 						onClick={() => setCurrentPage(page + 4)}
+						className={({ isActive }) =>
+							isActive ? 'link-active navlink' : 'navlink'
+						}
 					>
-						<p>{page + 4}</p>
+						<StyledPage theme={themeType}>{page + 4}</StyledPage>
 					</NavLink>
 				) : null}
 				{page !== lastPage ? (
 					<NavLink
 						to={`/${arrayType}/${lastPage}`}
 						onClick={() => setCurrentPage(lastPage)}
+						className={({ isActive }) =>
+							isActive ? 'link-active navlink' : 'navlink'
+						}
 					>
-						<p>{lastPage}</p>
+						<StyledPage theme={themeType}>{lastPage}</StyledPage>
 					</NavLink>
 				) : null}
 			</div>
@@ -107,7 +128,7 @@ export const Pagination: FC<PaginationProps> = props => {
 							to={`/${arrayType}/${elem}`}
 							onClick={() => setCurrentPage(elem)}
 						>
-							<p>{elem}</p>
+							<StyledPage theme={themeType}>{elem}</StyledPage>
 						</NavLink>
 					))}
 				</div>

@@ -100,6 +100,11 @@
       display: none;
     }
   }
+
+  &__profile-container {
+    width: 48px;
+    margin-top: 0.1rem;
+  }
 }
 
 .burger__checkbox {
@@ -135,6 +140,7 @@
     transition: all 0.2s ease-out;
 
     font-family: "Dela Gothic One", sans-serif;
+
     &:hover {
       color: $cerulean;
       transform: scale(0.95);
@@ -142,7 +148,7 @@
   }
 }
 
-@media screen and (width <= 1260px) {
+@media screen and (width <= 1300px) {
   .header {
     display: flex;
     align-items: flex-start;
@@ -228,10 +234,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      left: 3px;
-      top: 5px;
-      width: 56px;
-      height: 56px;
+      left: 0;
+      top: 0;
+      width: 58px;
+      height: 58px;
       z-index: 1;
 
       &-line {
@@ -303,29 +309,43 @@
   //.burger__checkbox:checked ~ .header__container .header__menu-container .profile-container {
   //  width: 53px;
   //}
-  @media screen and (width <= 980px) {
-    .header {
+}
 
+@media screen and (width <= 980px) {
+  .header {
+
+  }
+
+}
+
+@media screen and (width <= 770px) {
+  .header {
+    &__form {
+      width: fit-content;
     }
-    @media screen and (width <= 770px) {
-      .header {
-        &__form {
-          width: fit-content;
-        }
 
-        &__input {
-          display: none;
-        }
-
-        &__form, &__input-button {
-          background-color: $grayColor;
-        }
-
-        &__search {
-          width: 100%;
-          height: 96vh;
-        }
-      }
+    &__input {
+      display: none;
     }
+
+    &__form, &__input-button {
+      background-color: $grayColor;
+    }
+
+    &__search {
+      width: 100%;
+      height: 96vh;
+    }
+
+    &__menu a p{
+      //max-width: 500px;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (width <= 340px) {
+  .header__container {
+    flex-wrap: wrap;
   }
 }

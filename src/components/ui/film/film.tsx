@@ -20,7 +20,7 @@ import './film.scss';
 
 export const Film = () => {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
-	const { movies, affiche } = stateFromStore;
+	const { movies, affiche, tvSeries } = stateFromStore;
 	const { themeType } = useContext(ThemeContext);
 
 	const dispatch = useAppDispatch();
@@ -35,6 +35,10 @@ export const Film = () => {
 			break;
 		case 'affiche':
 			movie = affiche?.filter(elem => elem.id === location.state.id)[0];
+			console.log('location.state.myType === affiche', movie);
+			break;
+		case 'tv-series':
+			movie = tvSeries?.filter(elem => elem.id === location.state.id)[0];
 			console.log('location.state.myType === affiche', movie);
 			break;
 		default:
@@ -63,49 +67,15 @@ export const Film = () => {
 		<article className={'film article'}>
 			{movie ? (
 				<ContainerShared theme={themeType} className={'film__wrapper'}>
-					{/*<div className={'film__background-text-container'}>*/}
-					{/*	/!*<svg*!/*/}
-					{/*	/!*	className={'film__background-text'}*!/*/}
-					{/*	/!*	xmlns='http://www.w3.org/2000/svg'*!/*/}
-					{/*	/!*	version='1.1'*!/*/}
-					{/*	/!*	id='svgcontent'*!/*/}
-					{/*	/!*>*!/*/}
-					{/*	/!*	<text*!/*/}
-					{/*	/!*		x={'0'}*!/*/}
-					{/*	/!*		y={'150'}*!/*/}
-					{/*	/!*		fill={'gray'}*!/*/}
-					{/*	/!*		fontFamily={'Arial, sans-serif'}*!/*/}
-					{/*	/!*		fontSize={'400px'}*!/*/}
-					{/*	/!*	>*!/*/}
-					{/*	/!*		{movie.name}*!/*/}
-					{/*	/!*	</text>*!/*/}
-					{/*	/!*	<text*!/*/}
-					{/*	/!*		x={'0'}*!/*/}
-					{/*	/!*		y={'800'}*!/*/}
-					{/*	/!*		fill={'gray'}*!/*/}
-					{/*	/!*		fontFamily={'Arial, sans-serif'}*!/*/}
-					{/*	/!*		fontSize={'400px'}*!/*/}
-					{/*	/!*	>*!/*/}
-					{/*	/!*		{movie.name}*!/*/}
-					{/*	/!*	</text>*!/*/}
-					{/*	/!*</svg>*!/*/}
-					{/*	<p className={'film__background-text'}>*/}
-					{/*		{movie.name &&*/}
-					{/*			`${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name} ${movie?.name}`}*/}
-					{/*	</p>*/}
-					{/*</div>*/}
 					<h2 className={'film__name'}>
 						{movie.name ? movie.name : movie.alternativeName}
 					</h2>
-					{/*<p>{movie?.id}</p>*/}
 					<div className={'film__container'}>
 						<div className={'film__cover-container'}>
-							{/*<div>*/}
 							<StyledPoster
 								src={movie?.poster?.url}
 								alt={movie?.name}
 							/>
-							{/*</div>*/}
 						</div>
 						<div className={'film__information-container'}>
 							<div className={'film__rating-container'}>
@@ -183,7 +153,17 @@ export const Film = () => {
 					<div>
 						{movie.comments
 							? movie.comments.map((elem: Review) => (
-									<Comment key={elem.id} comment={elem} />
+									<Comment
+										key={elem.id}
+										comment={elem}
+										filmName={
+											movie?.name
+												? movie.name
+												: movie?.alternativeName
+												? movie?.alternativeName
+												: 'Неизвестно'
+										}
+									/>
 							  ))
 							: null}
 					</div>

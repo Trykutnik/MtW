@@ -1,5 +1,28 @@
+@import "./src/components/shared/colors";
+
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link-active {
+  color: $cerulean;
+  text-decoration: underline;
+}
+
+@media screen and (width <= 340px) {
+  .pagination {
+    gap: 0.3rem;
+  }
+}
+
+@media screen and (width <= 240px) {
+  .pagination {
+    gap: 1px;
+  }
 }

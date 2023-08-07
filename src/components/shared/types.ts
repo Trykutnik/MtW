@@ -55,6 +55,7 @@ export interface MovieDtoV13Extended extends MovieDtoV13 {
 
 export interface CommentProps {
 	comment: Review;
+	filmName: string;
 }
 
 export interface PaginationProps {

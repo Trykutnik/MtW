@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AllItems } from './components/ui/film/allItems/allItems';
 import { Film } from './components/ui/film/film';
 import { Header } from './components/ui/header/header';
+import { Login } from './components/ui/login/login';
 import { MainPage } from './components/ui/mainPage/mainPage';
 import { Page404 } from './components/ui/page404/Page404';
 import {
@@ -42,6 +43,7 @@ function App() {
 						}
 					>
 						<Route index element={<MainPage />} />
+						<Route path='login' element={<Login />} />
 						<Route path='film' element={<Film />} />
 						<Route
 							path='films'

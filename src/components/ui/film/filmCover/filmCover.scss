@@ -28,6 +28,12 @@
 @media screen and (width <= 980px) {
   .film-cover {
     max-width: 170px;
-    height: 18rem;
+    max-height: 18rem;
+
+    margin-bottom: 0.3rem;
+    //height: fit-content;
+    &__img-container {
+      height: 77%;
+    }
   }
 }
