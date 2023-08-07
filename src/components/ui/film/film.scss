@@ -7,9 +7,10 @@ img {
 .film {
   position: relative;
   //overflow: hidden;
-&__name {
-  font-family: "Dela Gothic One", sans-serif;
-}
+  &__name {
+    font-family: "Dela Gothic One", sans-serif;
+  }
+
   &__container {
     display: flex;
     flex-direction: row-reverse;
@@ -27,6 +28,7 @@ img {
 
     padding: 0 0.5rem;
   }
+
   //&__information {
   //  row-gap: 0.7rem;
   //}
@@ -70,7 +72,7 @@ img {
     border-radius: 0.5rem;
   }
 
-  &__reviews {
+  &__h4 {
     margin-top: 1rem;
 
     font-family: "Dela Gothic One", sans-serif;
@@ -146,7 +148,8 @@ img {
 @media screen and (width < 480px) {
   .film {
     &__information {
-      height: 5rem;
+      height: fit-content;
+      text-align: center;
 
       flex-direction: column;
       justify-content: center;

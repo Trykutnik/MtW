@@ -2,9 +2,13 @@
 
 .comment {
   position: relative;
-  box-shadow: 0 0rem 1.0rem 0.2rem $richBlack;
+
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   margin-top: 1.5rem;
+
+  color: $richBlack;
+  background-color: $whiteColor;
+  box-shadow: 0 0 1.0rem 0.2rem $richBlack;
   border-radius: 0.5rem;
   overflow: hidden;
 
@@ -17,7 +21,7 @@
     height: 100%;
     width: 7px;
 
-    background-color: $cerulean;
+    background-color: $grayColor;
   }
 
   &__title {
@@ -33,13 +37,12 @@
       height: 3px;
       width: 70%;
 
-      background-color: $cerulean;
+      background-color: $grayColor;
     }
   }
 
   &__review {
-    //background-color: $pictonBlue;
-  }
+    margin-top: 0.5rem;  }
   &__title, &__review {
     padding-left: 0.5rem;
     padding-right: 0.5rem;

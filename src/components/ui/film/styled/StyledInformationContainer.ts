@@ -8,7 +8,7 @@ export const StyledInformationContainer = styled.div`
 	align-items: center;
 	column-gap: 0.7rem;
 
-	height: 4rem;
+	//height: 4rem;
 	width: 100%;
 	margin-top: 0.5rem;
 	padding: 0.5rem;

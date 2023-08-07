@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { Review } from '@openmoviedb/kinopoiskdev_client';
+import { htmlToText } from 'html-to-text';
 
 import { getComments } from '../../../redux/reducers/moviesReducer';
 import { StoreType, useAppDispatch } from '../../../redux/store';
@@ -17,17 +18,17 @@ import { InformationFromArrayContainer } from './informationFromArrayContainer';
 import { RatingText } from './ratingText';
 
 import './film.scss';
+import './comment/comment.scss';
 
 export const Film = () => {
 	const stateFromStore = useSelector((state: StoreType) => state.userState);
 	const { movies, affiche, tvSeries } = stateFromStore;
 	const { themeType } = useContext(ThemeContext);
-
 	const dispatch = useAppDispatch();
-
 	const location = useLocation();
 	let movie: MovieDtoV13Extended | undefined;
-	console.log(location.state.myType);
+	let convertedToText;
+
 	switch (location.state.myType) {
 		case 'films':
 			movie = movies?.filter(elem => elem.id === location.state.id)[0];
@@ -146,9 +147,32 @@ export const Film = () => {
 									{movie.description}
 								</p>
 							) : null}
+							{movie.facts ? (
+								<div className={'film__facts'}>
+									<h4 className={'film__h4'}>
+										Факты о фильме
+									</h4>
+									{movie.facts.map((elem, index) => {
+										if (index <= 5) {
+											convertedToText = htmlToText(
+												elem.value,
+												{},
+											);
+											return (
+												<p
+													key={index}
+													className={'comment'}
+												>
+													{convertedToText}
+												</p>
+											);
+										}
+									})}
+								</div>
+							) : null}
 						</div>
 					</div>
-					<h4 className={'film__reviews'}>Рецензии пользователей</h4>
+					<h4 className={'film__h4'}>Рецензии пользователей</h4>
 					<NewComment id={movie.id} />
 					<div>
 						{movie.comments

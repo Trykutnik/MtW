@@ -35,6 +35,7 @@ export const movieQueryBuilder = (currentPage: number) => {
 				'persons',
 				'type',
 				'names',
+				'facts',
 			])
 			// .filterRange('year', [2020, 2023])
 			.filterRange('rating.kp', [7.5, 10])
@@ -71,6 +72,7 @@ export const afficheQueryBuilder = () => {
 				'ticketsOnSale',
 				'reviewInfo',
 				'type',
+				'facts',
 			])
 			.filterRange('year', [currentYear, currentYear])
 			// .filterRange('rating.kp', [7.5, 10])
@@ -108,6 +110,7 @@ export const tvSeriesQueryBuilder = (currentPage: number) => {
 				'names',
 				'seasonsInfo',
 				'isSeries',
+				'facts',
 			])
 			.filterRange('rating.kp', [7.5, 10])
 			// .filterRange('reviewInfo', SPECIAL_VALUE.NOT_NULL)
