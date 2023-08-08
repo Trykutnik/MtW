@@ -1,0 +1,130 @@
+@import "./src/components/shared/colors";
+
+img {
+  width: 100%;
+}
+
+.film {
+  position: relative;
+
+  &__name {
+    font-family: "Dela Gothic One", sans-serif;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  &__cover-container {
+    width: 30%;
+    margin-left: 1rem;
+  }
+
+  &__rating-container {
+    display: flex;
+    justify-content: left;
+    gap: 5rem;
+
+    padding: 0 0.5rem;
+  }
+
+  &__information-container {
+    width: 70%;
+  }
+
+  &__background-text-container {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    text-overflow: clip;
+    white-space: pre-wrap;
+  }
+
+  &__background-text {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+    top: 100px;
+    left: -150px;
+    rotate: 33deg;
+
+    color: gray;
+    font-size: 150px;
+    font-weight: bolder;
+  }
+
+  &__description {
+    margin-top: 1rem;
+    padding: 0.5rem;
+
+    background-color: $lightBlackColor;
+    color: $whiteColor;
+    box-shadow: 0 1rem 1.5rem 0.2rem $richBlack;
+    border-radius: 0.5rem;
+  }
+
+  &__h4 {
+    margin-top: 1rem;
+
+    font-family: "Dela Gothic One", sans-serif;
+  }
+}
+
+@media screen and (width < 1440px) {
+  .film {
+    &__container {
+    }
+
+    &__background-text-container {
+      display: none;
+    }
+  }
+
+}
+
+@media screen and (width < 980px) {
+  .film {
+
+    &__container {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__cover-container {
+      width: 50%;
+      align-self: center;
+      margin-top: 1rem;
+    }
+
+    &__rating-container {
+      margin-top: 2rem;
+    }
+
+    &__information-container {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (width < 480px) {
+  .film {
+    &__information {
+      height: fit-content;
+      text-align: center;
+
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    &__rating-container {
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+  }
+}

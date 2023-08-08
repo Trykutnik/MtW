@@ -1,26 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import { AllItems } from './components/ui/film/allItems/allItems';
+import { Film } from './components/ui/film/film';
+import { Header } from './components/ui/header/header';
+import { Login } from './components/ui/login/login';
+import { MainPage } from './components/ui/mainPage/mainPage';
+import { Page404 } from './components/ui/page404/Page404';
+import {
+	getAffiche,
+	getMovies,
+	getTvSeries,
+} from './redux/reducers/moviesReducer';
+import { StoreType, useAppDispatch } from './redux/store';
+
+import './App.scss';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const stateFromStore = useSelector((state: StoreType) => state.userState);
+	const { movies, affiche, tvSeries } = stateFromStore;
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(getMovies(1));
+		dispatch(getAffiche());
+		dispatch(getTvSeries(1));
+	}, []);
+
+	console.log(movies);
+	console.log(window.innerWidth);
+	return (
+		<>
+			<Router>
+				<Routes>
+					<Route
+						path='/'
+						element={
+							<>
+								<Header />
+							</>
+						}
+					>
+						<Route index element={<MainPage />} />
+						<Route path='login' element={<Login />} />
+						<Route path='film' element={<Film />} />
+						<Route
+							path='films'
+							element={<AllItems array={movies} />}
+						/>
+						<Route
+							path='films/:page'
+							element={<AllItems array={movies} />}
+						/>
+						<Route path='film/:id' element={<Film />} />
+						<Route
+							path='affiche'
+							element={<AllItems array={affiche} />}
+						/>
+						<Route
+							path='tv-series'
+							element={<AllItems array={tvSeries} />}
+						/>
+						<Route
+							path='tv-series/:page'
+							element={<AllItems array={tvSeries} />}
+						/>
+					</Route>
+					<Route path='*' element={<Page404 />} />
+				</Routes>
+			</Router>
+		</>
+	);
 }
 
 export default App;
