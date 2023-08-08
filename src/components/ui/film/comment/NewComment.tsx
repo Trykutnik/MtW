@@ -12,7 +12,7 @@ export const NewComment: FC<NewCommentProps> = props => {
 	const headerRef = useRef<HTMLInputElement>(null);
 	const reviewRef = useRef<HTMLTextAreaElement>(null);
 
-	const handeleAddComment = () => {
+	const handleAddComment = () => {
 		if (
 			headerRef.current &&
 			headerRef.current.value &&
@@ -31,7 +31,6 @@ export const NewComment: FC<NewCommentProps> = props => {
 			reviewRef.current.value = '';
 		}
 	};
-	// console.log(headerRef.current.value);
 	return (
 		<form action={'post'} className={'new-comment'}>
 			<input
@@ -53,7 +52,7 @@ export const NewComment: FC<NewCommentProps> = props => {
 			></textarea>
 			<button
 				type={'submit'}
-				onClick={handeleAddComment}
+				onClick={handleAddComment}
 				className={'new-comment__button'}
 			>
 				Опубликовать рецензию

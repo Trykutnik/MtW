@@ -10,7 +10,6 @@ interface LoginWrapperProps {
 
 export const LoginWrapper = styled.div<LoginWrapperProps>`
 	margin: 9rem auto 3rem;
-	//max-width: 63rem;
 
 	font-weight: 700;
 	color: ${({ currentTheme }) => currentTheme?.text};

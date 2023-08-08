@@ -62,8 +62,6 @@ export const getMovies = createAsyncThunk<void, number>(
 				}),
 			);
 			dispatch(addPages({ arrayType: 'films', lastPage: pages }));
-			// dispatch(addPageToMovies(page));
-			// dispatch(addType('films'));
 		}
 
 		// Если будет ошибка, то выведем ее в консоль
@@ -85,8 +83,6 @@ export const getAffiche = createAsyncThunk<void, void>(
 			const { docs, page, pages } = data;
 			console.log(`Страница ${page} из ${pages} аффиша`);
 			console.log(docs);
-			// dispatch(addToAffiche(data.docs));
-			// dispatch(addType({ type: 'affiche', page: 1 }));
 
 			dispatch(addToAffiche(docs));
 			dispatch(addType('affiche'));
@@ -118,8 +114,6 @@ export const getTvSeries = createAsyncThunk<void, number>(
 				}),
 			);
 			dispatch(addPages({ arrayType: 'tv-series', lastPage: pages }));
-			// dispatch(addPageToMovies(page));
-			// dispatch(addType('films'));
 		}
 
 		// Если будет ошибка, то выведем ее в консоль
@@ -209,7 +203,6 @@ const moviesSlice = createSlice({
 			state,
 			action: PayloadAction<Array<MovieDtoV13Extended>>,
 		) => {
-			// state.searchValues.forEach(elem => elem.myType)
 			action.payload.forEach(elem => {
 				if (
 					elem.ticketsOnSale &&
@@ -237,7 +230,6 @@ const moviesSlice = createSlice({
 								elem => elem.id === action.payload.film.id,
 							).length
 						) {
-							// action.payload.film.myType = 'affiche';
 							state.affiche.push(action.payload.film);
 						}
 						break;
@@ -262,8 +254,6 @@ const moviesSlice = createSlice({
 								elem => elem.id === action.payload.film.id,
 							).length
 						) {
-							// currentFilm.myType = 'films';
-							// action.payload.film.myType = 'films';
 							state.movies.push(currentFilm);
 						}
 				}
@@ -309,7 +299,6 @@ const moviesSlice = createSlice({
 			}
 		},
 		addNewComment: (state, action: PayloadAction<AddNewCommentProps>) => {
-			// state.pages.movies = action.payload;
 			const obj = {
 				title: action.payload.title,
 				review: action.payload.review,

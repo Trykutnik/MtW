@@ -16,7 +16,7 @@ export const Pagination: FC<PaginationProps> = props => {
 	for (let i = 1; i <= lastPage; i++) {
 		pagesArr.push(i);
 	}
-	console.log(page);
+
 	if (lastPage > 5) {
 		return (
 			<div className={'pagination'}>

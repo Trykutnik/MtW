@@ -38,7 +38,7 @@ export const AllItems: FC<SliderProps> = props => {
 	const setState = (page: number) => {
 		setCurrentPage(page);
 	};
-	// let currentArray = array ?? [];
+
 	let currentArray = array
 		? array?.filter(elem => elem.page === locationPage)
 		: [];
@@ -51,7 +51,6 @@ export const AllItems: FC<SliderProps> = props => {
 		currentArray = array;
 	}
 
-	console.log(array);
 	useEffect(() => {
 		if (
 			locationPage > 1 &&
@@ -62,14 +61,11 @@ export const AllItems: FC<SliderProps> = props => {
 			} else {
 				dispatch(getMovies(locationPage));
 			}
-
-			console.log('useEffect AllItems', array);
 		}
 	}, [currentPage]);
 
 	return (
 		<article className={'article'}>
-			{/* eslint-disable-next-line react/jsx-no-undef */}
 			<ContainerShared theme={themeType} className={'wrap-container'}>
 				{currentArray?.map(elem => (
 					<FilmCover key={elem.id} movie={elem} />

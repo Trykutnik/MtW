@@ -32,20 +32,6 @@ export const Header = () => {
 		() => dispatch(findFilm(inputValue)),
 		1000,
 	);
-	// const debounceOnChangeEmpty = useDebouncedCallback(
-	// 	() => dispatch(addToSearch([])),
-	// 	1000,
-	// );
-
-	// useEffect(() => {
-	// 	if (inputValue === '') {
-	// 		debounceOnChangeEmpty();
-	// 		// dispatch(addToSearch([]));
-	// 		// dispatch(findFilm(inputValue));
-	// 		// debounce(() => dispatch(findFilm(inputValue)), 1000);
-	// 	}
-	// }, [inputValue]);
-	// // useEffect(() => console.log(searchValues));
 
 	const setFocus = () => {
 		setLabelFocus(true);
@@ -170,16 +156,10 @@ export const Header = () => {
 								<p>Сериалы</p>
 							</NavLink>
 						</nav>
-						{/*<div>*/}
 						<form action='' method='get' className={'header__form'}>
 							<StyledLabel
 								htmlFor={'headerSearch'}
 								className={'header__input-container'}
-								// focus={
-								// 	inputRef.current && inputRef.current.
-								// 		? true
-								// 		: false
-								// }
 								focus={labelFocus}
 							>
 								<input

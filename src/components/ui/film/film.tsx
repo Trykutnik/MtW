@@ -32,30 +32,16 @@ export const Film = () => {
 	switch (location.state.myType) {
 		case 'films':
 			movie = movies?.filter(elem => elem.id === location.state.id)[0];
-			console.log('location.state.myType === films', movie);
 			break;
 		case 'affiche':
 			movie = affiche?.filter(elem => elem.id === location.state.id)[0];
-			console.log('location.state.myType === affiche', movie);
 			break;
 		case 'tv-series':
 			movie = tvSeries?.filter(elem => elem.id === location.state.id)[0];
-			console.log('location.state.myType === affiche', movie);
 			break;
 		default:
 			movie = movies?.filter(elem => elem.id === location.state.id)[0];
-			console.log('location.state.myType === default(films)', movie);
 	}
-
-	console.log(location.state);
-	console.log(location.state.myType);
-	console.log(movies);
-	console.log(affiche);
-	// const movie = movies?.filter(elem => elem.id === location.state.id)[0];
-	console.log(movie);
-	// console.log(location.state);
-
-	// const movie = location.state;
 
 	useEffect(() => {
 		if (movie && !movie.comments?.length) {
@@ -147,7 +133,7 @@ export const Film = () => {
 									{movie.description}
 								</p>
 							) : null}
-							{movie.facts ? (
+							{movie.facts.length ? (
 								<div className={'film__facts'}>
 									<h4 className={'film__h4'}>
 										Факты о фильме

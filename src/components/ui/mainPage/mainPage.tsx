@@ -12,7 +12,6 @@ export const MainPage = () => {
 	const { movies, affiche, tvSeries } = stateFromStore;
 	const { themeType } = useContext(ThemeContext);
 
-	console.log('MainPage', movies, affiche, tvSeries);
 	return (
 		<ArticleShared theme={themeType} className={'main-page article'}>
 			<h3 className={'main-page__heading'}>Кино</h3>

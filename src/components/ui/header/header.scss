@@ -10,10 +10,7 @@
 
   display: flex;
   align-items: center;
-  //justify-content: space-between;
 
-  //background-color: #3F190E;
-  //background-color: #F2c288;
   background-color: $grayColor;
 
   &__container.article {
@@ -21,12 +18,10 @@
     width: 100%;
     display: flex;
     align-items: center;
-    //gap: 4rem;
     justify-content: space-between;
   }
 
   &__menu-container {
-    //width: 50%;
     width: fit-content;
 
     display: flex;
@@ -56,7 +51,6 @@
     background-color: $whiteColor;
 
     &:focus-visible {
-      //border: none;
       outline: none;
     }
 
@@ -133,7 +127,6 @@
 .navlink {
   &-main {
     font-size: 30px;
-    //font-weight: 500;
     color: $prussianBlue;
 
     text-decoration: none;
@@ -155,7 +148,6 @@
 
     &__container.article {
       align-items: flex-start;
-      //gap: 4rem;
       justify-content: space-between;
     }
 
@@ -298,17 +290,12 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    //padding-top: 5px;
   }
   .burger__checkbox:checked ~ .header__menu-container .header__menu {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
-  //.burger__checkbox:checked ~ .header__container .header__menu-container .profile-container {
-  //  width: 53px;
-  //}
 }
 
 @media screen and (width <= 980px) {
@@ -338,7 +325,6 @@
     }
 
     &__menu a p{
-      //max-width: 500px;
       text-align: center;
     }
   }
